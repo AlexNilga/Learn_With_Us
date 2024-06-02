@@ -1,0 +1,27 @@
+.resized-img{
+    width: 300px;
+    height: 200px
+}
+
+/*Hide <Link>*/
+.link-unstyled, .link-unstyled:link, .link-unstyled:hover {
+    color: inherit;
+    text-decoration: inherit;
+}
+/*body{*/
+/*    background:radial-gradient(gray, white, whitesmoke);*/
+/*}*/
+
+
+.card:hover{
+    box-shadow: 5px 10px 20px 1px rgba(0,0,0,0.253);
+}
+
+/*.card-body{*/
+/*    padding: 3rem 0 !important;*/
+/*}*/
+
+/*.card-text{*/
+/*    font-size: 0.9rem;*/
+/*    padding: 0.4rem 1.9rem;*/
+/*}*/
