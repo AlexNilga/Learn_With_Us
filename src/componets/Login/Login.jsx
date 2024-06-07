@@ -12,6 +12,7 @@ import {
     MDBCheckbox
 }
     from 'mdb-react-ui-kit';
+import {Link} from "react-router-dom";
 
 function Login() {
     return (
@@ -26,16 +27,21 @@ function Login() {
                             <h2 className="fw-bold mb-2 text-center">Sign in</h2>
                             <p className="text-white-50 mb-3">Please enter your login and password!</p>
 
-                            <MDBInput wrapperClass='mb-4 w-100' label='Email address' id='formControlLg' type='email' size="lg"/>
-                            <MDBInput wrapperClass='mb-4 w-100' label='Password' id='formControlLg' type='password' size="lg"/>
+                            <MDBInput wrapperClass='mb-4 w-100' label='Email address' id='formControlLg' type='email'
+                                      size="lg"/>
+                            <MDBInput wrapperClass='mb-4 w-100' label='Password' id='formControlLg' type='password'
+                                      size="lg"/>
 
-                            <MDBCheckbox name='flexCheck' id='flexCheckDefault' className='mb-4' label='Remember password' />
+                            <MDBCheckbox name='flexCheck' id='flexCheckDefault' className='mb-4'
+                                         label='Remember password'/>
 
-                            <MDBBtn size='mx-2'>
+
+                            <MDBBtn href="/profile" size='mx-2'>
                                 Login
                             </MDBBtn>
 
-                            <hr className="my-4" />
+
+                            <hr className="my-4"/>
 
                             <MDBBtn className="mb-2 w-100" size="mx-2" style={{backgroundColor: '#dd4b39'}}>
                                 <MDBIcon fab icon="google" className="mx-2"/>
