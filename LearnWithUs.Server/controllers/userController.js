@@ -6,7 +6,8 @@ const {
     UniqueConstraintError
 } = require('sequelize');
 
-const User = require('../models/User');
+const db = require('../models');
+const User = db.User;
 
 const SECRET_KEY = 'supersecretkey'; // Use env vars in production
 

@@ -3,16 +3,24 @@ const {
     UniqueConstraintError
 } = require('sequelize');
 
-const Category = require('../models/Category');
+const db = require('../models');
+const Category = db.Category;
 
 /// <summary>
 /// Creates a new category
 /// </summary>
 exports.createCategory = async (req, res) => {
-    const { name, description } = req.body;
+    const { name, description, userId } = req.body;
 
     try {
-        const newCategory = await Category.create({ name: name, description: description });
+        const newCategory = await Category.create(
+            {
+                name: name,
+                description: description,
+                userId
+            }
+        );
+        
         res.status(201).json(newCategory);
     } catch (err) {
 

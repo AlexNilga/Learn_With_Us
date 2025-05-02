@@ -15,8 +15,8 @@ module.exports = (sequelize, DataTypes) => {
         validate: {
           notEmpty: { msg: "name cannot be empty" },
           len: {
-            args: [3, 100],
-            msg: "description must be between from 3 to 100 characters"
+            args: [3, 500],
+            msg: "description must be between from 10 to 500 characters"
           }
         }
       },
@@ -25,8 +25,8 @@ module.exports = (sequelize, DataTypes) => {
         validate: {
           notEmpty: { msg: "description cannot be empty" },
           len: {
-            args: [3, 1024],
-            msg: "description must be between from 3 to 1K characters"
+            args: [10, 1000],
+            msg: "description must be between from 10 to 1000 characters"
           }
         }
       },

@@ -21,6 +21,9 @@ async function initDatabase() {
       }
     );
 
+    const users = await User.findAll();
+    console.log('Users:', users.map(u => u.toJSON()));
+
     // Populate categories
     await Category.create(
       {
@@ -37,9 +40,6 @@ async function initDatabase() {
         userId: superAdmin.id // Associate with super admin
       }
     );
-
-    const users = await User.findAll();
-    console.log('Users:', users.map(u => u.toJSON()));
 
     const categories = await Category.findAll();
     console.log('Categories:', categories.map(c => c.toJSON()));

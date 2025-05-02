@@ -16,11 +16,7 @@ module.exports = (sequelize, DataTypes) => {
         unique: { msg: 'Username has already been taken' },
         validate: {
           isEmail: { msg: "Username must be a valid email address" }, // ensures it's a valid email format
-          notEmpty: { msg: "Username is required" }, // ensures it's not an empty string
-          len: {
-            args: [3, 50], // Validate length (3 to 50 characters)
-            msg: "Username must be between 3 and 50 characters long"
-          },
+          notEmpty: { msg: "Username is required" } // ensures it's not an empty string
         }
       },
       password: {
