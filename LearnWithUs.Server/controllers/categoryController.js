@@ -49,7 +49,15 @@ exports.getCategory = async (req, res) => {
     }
 
     try {
-        const category = await Category.findByPk(req.params.id);
+        const category = await Category.findByPk(
+            req.params.id, {
+            include: {
+                model: db.User,
+                as: 'creator', // alias for the user who created the category
+                attributes: ['id', 'username'] // only fetch selected user fields
+            }
+        });
+
         if (!category) {
             return res.status(404).json({ error: 'Category was not found' });
         }
@@ -61,3 +69,24 @@ exports.getCategory = async (req, res) => {
         res.status(500).json({ error: 'Failed to find the category' });
     }
 };
+
+exports.listCategories = async (req, res) => {
+    if (!req.user) {
+        return res.status(401).json({ error: 'Unauthorized' });
+    }
+
+    try {
+        const categories = await Category.findAll({
+            include: {
+                model: db.User,
+                as: 'creator', // alias for the user who created the category
+                attributes: ['id', 'username'] // only fetch selected user fields
+            }
+        });
+
+        res.status(200).json(categories);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Failed to list categories' });
+    }
+}
