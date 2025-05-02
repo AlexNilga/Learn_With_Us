@@ -17,7 +17,9 @@ async function initDatabase() {
       {
         username: 'superadmin@example.com',
         role: "Admin",
-        password: "$2b$10$BnSP5uCQ4hMXmO3.787peeqOMlVVO7poPpfHZEY9Ec.GlRUTBYkG6"
+        password: "$2b$10$BnSP5uCQ4hMXmO3.787peeqOMlVVO7poPpfHZEY9Ec.GlRUTBYkG6",
+        firstName: "Super",
+        lastName: "Admin",
       }
     );
 
