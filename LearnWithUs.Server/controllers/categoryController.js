@@ -10,6 +10,11 @@ const Category = db.Category;
 /// Creates a new category
 /// </summary>
 exports.createCategory = async (req, res) => {
+
+    if (!req.user) {
+        return res.status(401).json({ error: 'Unauthorized' });
+    }
+
     const { name, description, userId } = req.body;
 
     try {
@@ -20,7 +25,7 @@ exports.createCategory = async (req, res) => {
                 userId
             }
         );
-        
+
         res.status(201).json(newCategory);
     } catch (err) {
 
@@ -38,6 +43,11 @@ exports.createCategory = async (req, res) => {
 /// Finds a category by ID
 /// </summary>
 exports.getCategory = async (req, res) => {
+
+    if (!req.user) {
+        return res.status(401).json({ error: 'Unauthorized' });
+    }
+
     try {
         const category = await Category.findByPk(req.params.id);
         if (!category) {

@@ -34,7 +34,15 @@ module.exports = (sequelize, DataTypes) => {
           }
         },
         defaultValue: "User"
-      }
+      },
+      firstName: {
+        type: DataTypes.STRING,
+        allowNull: false // ensures it's not null
+      },
+      lastName: {
+        type: DataTypes.STRING,
+        allowNull: false // ensures it's not null
+      },
     },
     {
       tableName: 'Users', // Match your actual table name

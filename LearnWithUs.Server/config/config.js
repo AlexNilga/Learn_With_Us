@@ -8,7 +8,12 @@ module.exports = {
     host: '127.0.0.1',
     port: '1433',
     dialect: 'mssql'
-  }/*,
+  },
+  jwt: {
+    secret: process.env.JWT_SECRET || 'supersecretkey',
+    expiresIn: process.env.JWT_EXPIRES_IN || '1h'
+  },
+  /*,
   test: {
     username: 'your_db_username',
     password: 'your_db_password',
