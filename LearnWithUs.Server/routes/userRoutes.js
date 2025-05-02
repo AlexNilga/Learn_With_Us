@@ -6,7 +6,7 @@ const authenticateToken = require('../middlewares/authenticateToken');
 
 
 // Create user
-router.post('/', userController.createUser);
+router.post('/', authenticateToken, (req, res) => { userController.createUser(req, res)});
 
 // Login
 router.post('/login', userController.loginUser);

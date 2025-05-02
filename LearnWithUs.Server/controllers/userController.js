@@ -21,6 +21,7 @@ exports.createUser = async (req, res) => {
     const { username, password, role, firstName, lastName } = req.body;
     const hash = await bcrypt.hash(password, 10);
 
+    console.log("User", req.user)
     if (role === 'Admin' && !req.user?.isAdmin) {
         return res.status(403).json({ error: 'You are not authorized to create an admin user' });
     }
