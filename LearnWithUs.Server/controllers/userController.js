@@ -129,3 +129,50 @@ exports.listUsers = async (req, res) => {
         res.status(500).json({ error: 'Failed to find the users' });
     }
 }
+
+
+/// <summary>
+/// Updates a user
+/// </summary>
+exports.updateUser = async (req, res) => {
+
+    if (!req.user) {
+        return res.status(401).json({ error: 'Unauthorized' });
+    }
+
+    const { role, firstName, lastName } = req.body;
+
+    try {
+        const user = await User.findByPk(req.params.id);
+
+        if (!user) {
+            return res.status(404).json({ error: 'User was not found' });
+        }
+
+        if (user.id !== req.user.id && !req.user.isAdmin) {
+            return res.status(403).json({ error: 'You are not authorized to update this user' });
+        }
+
+        if (role === 'Admin' && !req.user?.isAdmin) {
+            return res.status(403).json({ error: 'You are not authorized to create an admin user' });
+        }
+
+        await user.update(
+            {
+                role: role,
+                firstName: firstName,
+                lastName: lastName,
+            }
+        );
+        res.status(200).json(user.toJSON());
+
+    } catch (err) {
+        if (err instanceof ValidationError || err instanceof UniqueConstraintError) {
+            const errors = err.errors.map(e => e.message);
+            return res.status(400).json({ errors });
+        }
+
+        console.error(err);
+        res.status(500).json({ error: 'Failed to update user' });
+    }
+}

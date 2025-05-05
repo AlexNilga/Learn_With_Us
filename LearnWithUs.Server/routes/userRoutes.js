@@ -111,4 +111,31 @@ router.get('/:id', authenticateToken, (req, res) => { userController.getUserById
 router.get('/', authenticateToken, (req, res) => { userController.listUsers(req, res) });
 
 
+/**
+ * @swagger
+ * /user:
+ *   patch:
+ *     summary: Update user
+ *     tags: [Users]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               role:
+ *                 type: string
+ *               firstName:
+ *                 type: string
+ *               lastName:
+ *                 type: string
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: User updated successfully
+ */
+router.patch('/', authenticateToken, (req, res) => { userController.updateUser(req, res)});
+
 module.exports = router;
