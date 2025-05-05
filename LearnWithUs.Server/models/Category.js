@@ -50,6 +50,11 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'userId',
       as: 'creator',
     });
+
+    Category.hasMany(models.Content, {
+      foreignKey: 'categoryId',
+      as: 'contents',
+    });
   };
 
   Category.hasMany(Category, {
@@ -61,6 +66,7 @@ module.exports = (sequelize, DataTypes) => {
     as: 'parent',
     foreignKey: 'parentId'
   });
+
 
   return Category;
 };

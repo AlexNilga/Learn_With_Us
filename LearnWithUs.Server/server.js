@@ -1,4 +1,4 @@
-const app = require('./app');
+const app = require('./learnWithUsApp');
 const db = require('./models');
 const initDatabase = require('./databaseInit');
 
