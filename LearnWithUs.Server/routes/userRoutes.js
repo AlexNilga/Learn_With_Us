@@ -16,6 +16,7 @@ const userController = require('../controllers/userController');
  * /user:
  *   post:
  *     summary: Create a new user
+ *     tags: [Users]
  *     requestBody:
  *       required: true
  *       content:
@@ -54,6 +55,7 @@ router.post('/', authenticateToken, (req, res) => { userController.createUser(re
  * /user/login:
  *   post:
  *     summary: Login user
+ *     tags: [Users]
  *     requestBody:
  *       required: true
  *       content:
@@ -78,6 +80,7 @@ router.post('/login', userController.loginUser);
  * /user/{id}:
  *   get:
  *     summary: Get user by ID
+ *     tags: [Users]
  *     parameters:
  *       - name: id
  *         in: path
@@ -98,6 +101,7 @@ router.get('/:id', authenticateToken, (req, res) => { userController.getUserById
  * /user:
  *   get:
  *     summary: Get all users
+ *     tags: [Users]
  *     security:
  *      - bearerAuth: []
  *     responses:
