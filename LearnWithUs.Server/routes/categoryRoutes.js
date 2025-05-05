@@ -18,5 +18,10 @@ router.get('/:id', authenticateToken, (req, res) => { categoryController.getCate
 // List category by ID
 router.get('/', authenticateToken, (req, res) => { categoryController.listCategories(req, res) });
 
+// Update category
+router.patch('/:id', authenticateToken, (req, res) => { categoryController.updateCategory(req, res) });
+
+// Delete category
+router.delete('/:id', authenticateToken, (req, res) => { categoryController.deleteCategory(req, res) });
 
 module.exports = router;

@@ -50,7 +50,7 @@ module.exports = (sequelize, DataTypes) => {
     },
   );
 
-  // 🔽 Override toJSON on the prototype
+  // Override toJSON on the prototype, to hide the password hash
   User.prototype.toJSON = function () {
     const values = { ...this.get() };
     delete values.password;
