@@ -7,7 +7,6 @@ const userRoutes = require('./routes/userRoutes');
 const categoriesRouter = require('./routes/categoryRoutes');
 
 const app = express();
-
 app.use(cors());
 app.use(express.json());
 
@@ -17,11 +16,12 @@ const swaggerDefinition = {
     info: {
         title: 'LearnWithUs API',
         version: '1.0.0',
-        description: 'API documentation for my Express app',
+        description: 'LearnWithUs API documentation'
     },
     servers: [
         {
             url: 'http://localhost:3000',
+            description: 'Development server'
         },
     ],
     components: {
@@ -38,14 +38,14 @@ const swaggerDefinition = {
 // Options for swagger-jsdoc
 const options = {
     swaggerDefinition,
-    apis: ['./routes/*.js'], // Path to the API docs (adjust as needed)
+    apis: ['./routes/*.js'], // Path to the API docs
 };
 
 // Initialize swagger-jsdoc
 const swaggerSpec = swaggerJSDoc(options);
 
 // Serve Swagger UI
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 
 app.use('/user', userRoutes);
