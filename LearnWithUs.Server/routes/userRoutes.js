@@ -8,7 +8,7 @@ const authenticateToken = require('../middlewares/authenticateToken');
 // Create user
 router.post('/', authenticateToken, (req, res) => { userController.createUser(req, res)});
 
-// Login
+// Profile
 router.post('/login', userController.loginUser);
 
 // Get user by ID
