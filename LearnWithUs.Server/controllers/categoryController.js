@@ -15,14 +15,15 @@ exports.createCategory = async (req, res) => {
         return res.status(401).json({ error: 'Unauthorized' });
     }
 
-    const { name, description, userId } = req.body;
+    const { name, description, parentId } = req.body;
 
     try {
         const newCategory = await Category.create(
             {
                 name: name,
                 description: description,
-                userId
+                userId: req.user.id,
+                parentId: parentId
             }
         );
 

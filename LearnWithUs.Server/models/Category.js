@@ -30,13 +30,13 @@ module.exports = (sequelize, DataTypes) => {
           }
         }
       },
-      isPublic: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: true
+      parentId: {
+        type: DataTypes.INTEGER,
+        allowNull: true
       },
       userId: {
         type: DataTypes.INTEGER,
-        allowNull: false, // Make userId required
+        allowNull: true
       },
     },
     {
@@ -51,6 +51,16 @@ module.exports = (sequelize, DataTypes) => {
       as: 'creator',
     });
   };
+
+  Category.hasMany(Category, {
+    as: 'children',
+    foreignKey: 'parentId'
+  });
+  
+  Category.belongsTo(Category, {
+    as: 'parent',
+    foreignKey: 'parentId'
+  });
 
   return Category;
 };
