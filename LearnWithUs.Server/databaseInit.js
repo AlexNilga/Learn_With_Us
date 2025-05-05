@@ -27,11 +27,29 @@ async function initDatabase() {
     console.log('Users:', users.map(u => u.toJSON()));
 
     // Populate categories
-    await Category.create(
+    const mathCategory = await Category.create(
       {
         name: 'Math',
         description: "Materials related to math",
         userId: superAdmin.id // Associate with super admin
+      }
+    );
+
+    await Category.create(
+      {
+        name: 'Algebra',
+        description: "Materials related to algebra",
+        userId: superAdmin.id, // Associate with super admin
+        parentId: mathCategory.id // Associate with parent category
+      }
+    );
+
+    await Category.create(
+      {
+        name: 'Geometry',
+        description: "Materials related to geometry",
+        userId: superAdmin.id, // Associate with super admin
+        parentId: mathCategory.id // Associate with parent category
       }
     );
 
