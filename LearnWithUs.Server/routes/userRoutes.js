@@ -1,9 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-const userController = require('../controllers/userController');
 const authenticateToken = require('../middlewares/authenticateToken');
-
+const userController = require('../controllers/userController');
 
 // Create user
 router.post('/', authenticateToken, (req, res) => { userController.createUser(req, res)});
@@ -15,7 +14,7 @@ router.post('/login', userController.loginUser);
 router.get('/:id', authenticateToken, (req, res) => { userController.getUserById(req, res) });
 
 // Get all users
-router.get('/', authenticateToken, (req, res) => { userController.getAllUsers(req, res) });
+router.get('/', authenticateToken, (req, res) => { userController.listUsers(req, res) });
 
 
 module.exports = router;

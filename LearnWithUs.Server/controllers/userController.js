@@ -115,7 +115,7 @@ exports.getUserById = async (req, res) => {
 /// <summary>
 /// Finds all users
 /// </summary>
-exports.getAllUsers = async (req, res) => {
+exports.listUsers = async (req, res) => {
     try {
         if (!req.user) {
             return res.status(401).json({ error: 'Unauthorized' });
