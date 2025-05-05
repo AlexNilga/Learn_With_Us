@@ -1,19 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
+
 import WelcomePage from './Pages/Welcome/WelcomePage';
 import reportWebVitals from './reportWebVitals';
 import {createBrowserRouter, Outlet, RouterProvider} from "react-router-dom";
 import SubjectsPage from "./Pages/Subjects/SubjectsPage";
 import MaterialsPage from "./Pages/Materials/MaterialsPage";
-import Login from "./componets/Login/Login";
-import SignUp from "./componets/Login/SignUp";
 import Header from "./componets/Header/Header";
-import Profile from "./Pages/Profile/ProfilePage"
+import RegisterPage from "./Pages/Profile/RegisterPage"
 import FilesPage from "./Pages/Files/FilesPage";
+import LoginPage from "./Pages/Profile/LoginPage";
+
 import 'mdb-react-ui-kit/dist/css/mdb.min.css';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 function AppLayout() {
     return <>
@@ -44,14 +46,11 @@ const router = createBrowserRouter([
             },
             {
                 path: "login",
-                element: (<Login/>),
+                element: (<LoginPage/>),
             },
             {
-                path: "sign-up",
-                element: (<SignUp/>),
-            }, {
-                path: "profile",
-                element: (<Profile/>),
+                path: "register",
+                element: (<RegisterPage/>),
             },
         ]
     }

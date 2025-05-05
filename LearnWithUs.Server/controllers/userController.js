@@ -73,7 +73,7 @@ exports.loginUser = async (req, res) => {
                 config.jwt.secret,
                 { expiresIn: config.jwt.expiresIn }
             );
-            res.json({ message: 'Login successful', token });
+            res.json({ message: 'Profile successful', token });
         } else {
             res.status(401).json({ error: 'Invalid credentials' });
         }
