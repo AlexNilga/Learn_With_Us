@@ -32,13 +32,17 @@ const upload = multer({ dest: tmpDir }); // temporary folder
  *         multipart/form-data:
  *           schema:
  *             type: object
+ *             required:
+ *               - description
+ *               - categoryId
+ *               - file
  *             properties:
- *               name:
- *                 type: string
  *               description:
  *                 type: string
+ *                 example: "Content description"
  *               categoryId:
  *                 type: integer
+ *                 example: 1
  *               file:
  *                 type: string
  *                 format: binary

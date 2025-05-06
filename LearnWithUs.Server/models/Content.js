@@ -17,8 +17,8 @@ module.exports = (sequelize, DataTypes) => {
         validate: {
           notEmpty: { msg: "Content name cannot be empty" },
           len: {
-            args: [10, 1000],
-            msg: "name must be from 10 to 100 characters"
+            args: [3, 1000],
+            msg: "name must be from 3 to 100 characters"
           }
         }
       },

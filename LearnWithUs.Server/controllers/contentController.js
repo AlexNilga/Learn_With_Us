@@ -27,7 +27,7 @@ exports.createContent = async (req, res) => {
     }
 
     const id = uuidv4();
-    const { name, description, categoryId } = req.body;
+    const { description, categoryId } = req.body;
 
     // Create category directory if it doesn't exist
     const dir = path.join(__dirname, '../uploads', categoryId);
@@ -41,7 +41,7 @@ exports.createContent = async (req, res) => {
         const newContent = await Content.create(
             {
                 id: id,
-                name: name,
+                name: file.originalname,
                 description: description,
                 userId: req.user.id,
                 categoryId: categoryId,
