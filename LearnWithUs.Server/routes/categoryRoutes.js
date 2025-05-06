@@ -1,11 +1,6 @@
 const express = require('express');
 const router = express.Router();
 
-const {
-    ValidationError,
-    UniqueConstraintError
-} = require('sequelize');
-
 const authenticateToken = require('../middlewares/authenticateToken');
 const categoryController = require('../controllers/categoryController');
 

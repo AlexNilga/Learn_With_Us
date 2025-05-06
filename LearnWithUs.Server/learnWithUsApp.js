@@ -5,6 +5,7 @@ const swaggerJSDoc = require('swagger-jsdoc');
 
 const userRoutes = require('./routes/userRoutes');
 const categoriesRouter = require('./routes/categoryRoutes');
+const contentsRouter = require('./routes/contentRoutes');
 
 const app = express();
 app.use(cors());
@@ -50,5 +51,6 @@ app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use('/user', userRoutes);
 app.use('/category', categoriesRouter);
+app.use('/content', contentsRouter);
 
 module.exports = app;

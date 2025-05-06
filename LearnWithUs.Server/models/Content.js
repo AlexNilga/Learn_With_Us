@@ -5,9 +5,8 @@ module.exports = (sequelize, DataTypes) => {
     {
       // Define columns
       id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
+        type: DataTypes.UUID,
+        primaryKey: true
       },
       path: {
         type: DataTypes.STRING,
