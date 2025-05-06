@@ -72,6 +72,19 @@ router.get('/:id', authenticateToken, (req, res) => { contentController.getConte
  *   get:
  *     summary: Get all contents
  *     tags: [Content]
+ *     parameters:
+ *       - name: categoryId
+ *         in: query
+ *         required: false
+ *         description: Optional filter by category ID
+ *         schema:
+ *           type: integer
+ *       - name: userId
+ *         in: query
+ *         required: false
+ *         description: Optional filter by user ID
+ *         schema:
+ *           type: integer
  *     security:
  *       - bearerAuth: []
  *     responses:

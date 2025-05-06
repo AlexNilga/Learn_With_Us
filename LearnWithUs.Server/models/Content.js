@@ -55,7 +55,7 @@ module.exports = (sequelize, DataTypes) => {
     
     Content.belongsTo(models.Category, {
       foreignKey: 'categoryId',
-      as: 'parent',
+      as: 'category',
     });
   };
 

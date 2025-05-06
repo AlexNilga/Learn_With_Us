@@ -77,26 +77,43 @@ exports.getContent = async (req, res) => {
     }
 };
 
-// exports.listCategories = async (req, res) => {
-//     if (!req.user) {
-//         return res.status(401).json({ error: 'Unauthorized' });
-//     }
+exports.listContents = async (req, res) => {
+    if (!req.user) {
+        return res.status(401).json({ error: 'Unauthorized' });
+    }
 
-//     try {
-//         const categories = await Category.findAll({
-//             include: {
-//                 model: db.User,
-//                 as: 'creator', // alias for the user who created the category
-//                 attributes: ['id', 'username'] // only fetch selected user fields
-//             }
-//         });
+    const { categoryId, userId } = req.query;
 
-//         res.status(200).json(categories);
-//     } catch (err) {
-//         console.error(err);
-//         res.status(500).json({ error: 'Failed to list categories' });
-//     }
-// };
+    // Build the where clause based on the provided query parameters
+    const where = {};
+    if (categoryId) where.categoryId = categoryId;
+    if (userId) where.userId = userId;
+
+    try {
+        const contents = await Content.findAll(
+            {
+                where: where,
+                include: [
+                    {
+                        model: db.User,
+                        as: 'creator', // alias for the user who created the category
+                        attributes: ['id', 'username'] // only fetch selected user fields
+                    },
+                    {
+                        model: db.Category,
+                        as: 'category', // alias for the category
+                        attributes: ['id', 'name'] // only fetch selected category fields
+                    }
+                ]
+            }
+        );
+
+        res.status(200).json(contents);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Failed to list ccontents' });
+    }
+};
 
 /// <summary>
 /// Updates a category
