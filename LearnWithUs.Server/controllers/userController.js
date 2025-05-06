@@ -40,8 +40,8 @@ exports.createUser = async (req, res) => {
     } catch (err) {
 
         if (err instanceof ValidationError || err instanceof UniqueConstraintError) {
-            const errors = err.errors.map(e => e.message);
-            return res.status(400).json({ errors });
+            const error = err.errors[0].message;
+            return res.status(400).json({ error });
         }
 
         console.error(err);
@@ -168,8 +168,8 @@ exports.updateUser = async (req, res) => {
 
     } catch (err) {
         if (err instanceof ValidationError || err instanceof UniqueConstraintError) {
-            const errors = err.errors.map(e => e.message);
-            return res.status(400).json({ errors });
+            const error = err.errors[0].message;
+            return res.status(400).json({ error });
         }
 
         console.error(err);
