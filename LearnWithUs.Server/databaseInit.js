@@ -15,7 +15,7 @@ async function initDatabase() {
     // Create a super adim with password 'welome123'
     const superAdmin = await db.User.create(
       {
-        username: 'superadmin@example.com',
+        username: 'superadmin@nomail.com',
         role: "Admin",
         password: "$2b$10$BnSP5uCQ4hMXmO3.787peeqOMlVVO7poPpfHZEY9Ec.GlRUTBYkG6",
         firstName: "Super",

@@ -65,11 +65,13 @@ router.post('/', authenticateToken, (req, res) => { userController.createUser(re
  *             properties:
  *               username:
  *                 type: string
+ *                 example: "superadmin@nomail.com"
  *               password:
  *                 type: string
+ *                 example: "welcome123"
  *     responses:
  *       200:
- *         description: JWT token
+ *         description: returns JWT token
  */
 router.post('/login', userController.loginUser);
 

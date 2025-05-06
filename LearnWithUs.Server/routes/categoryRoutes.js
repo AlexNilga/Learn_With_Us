@@ -26,10 +26,13 @@ const categoryController = require('../controllers/categoryController');
  *             properties:
  *               name:
  *                 type: string
+ *                 example: "Trigonometry"
  *               description:
  *                 type: string
+ *                 example: "Meterials related to the trigonometry"
  *               parentId:
  *                 type: integer
+ *                 example: 1
  *     security:
  *       - bearerAuth: []
  *     responses:
@@ -82,6 +85,7 @@ router.get('/:id', authenticateToken, (req, res) => { categoryController.getCate
  *         in: query
  *         required: false
  *         description: Optional filter by user ID
+ *         example: 1
  *         schema:
  *           type: integer
  *     security:

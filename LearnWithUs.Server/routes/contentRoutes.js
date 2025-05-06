@@ -1,8 +1,17 @@
 const express = require('express');
 const router = express.Router();
 
+const multer = require('multer');
+const path  = require('path');
+
 const authenticateToken = require('../middlewares/authenticateToken');
 const contentController = require('../controllers/contentController');
+
+const uploadDir = path.join(__dirname, '../uploads');
+const tmpDir = path.join(uploadDir, 'tmp');
+
+const upload = multer({ dest: tmpDir }); // temporary folder
+
 
 /**
  * @swagger
@@ -20,7 +29,7 @@ const contentController = require('../controllers/contentController');
  *     requestBody:
  *       required: true
  *       content:
- *         application/json:
+ *         multipart/form-data:
  *           schema:
  *             type: object
  *             properties:
@@ -30,6 +39,9 @@ const contentController = require('../controllers/contentController');
  *                 type: string
  *               categoryId:
  *                 type: integer
+ *               file:
+ *                 type: string
+ *                 format: binary
  *     security:
  *       - bearerAuth: []
  *     responses:
@@ -40,7 +52,11 @@ const contentController = require('../controllers/contentController');
  *       500:
  *         description: Internal server error
  */
-router.post('/', authenticateToken, (req, res) => { contentController.createContent(req, res) });
+router.post(
+    '/',
+    authenticateToken,
+    upload.single('file'),
+    async (req, res) => { contentController.createContent(req, res) });
 
 /**
  * @swagger
@@ -142,7 +158,7 @@ router.patch('/:id', authenticateToken, (req, res) => { contentController.update
  * @swagger
  * /content/{id}:
  *   delete:
- *     summary: Delete a content by ID
+ *     summary: Delete content
  *     tags: [Content]
  *     parameters:
  *       - name: id

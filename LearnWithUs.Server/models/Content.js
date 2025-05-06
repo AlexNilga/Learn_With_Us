@@ -47,6 +47,13 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
+  // Override toJSON on the prototype, to hide the path hash
+  Content.prototype.toJSON = function () {
+    const values = { ...this.get() };
+    delete values.path;
+    return values;
+  };
+
   Content.associate = (models) => {
     Content.belongsTo(models.User, {
       foreignKey: 'userId',

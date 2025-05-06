@@ -1,3 +1,9 @@
+
+const { v4: uuidv4 } = require('uuid');
+
+const fs = require('fs');
+const path = require('path');
+
 const {
     ValidationError,
     UniqueConstraintError
@@ -5,8 +11,6 @@ const {
 
 const db = require('../models');
 const Content = db.Content;
-
-const { v4: uuidv4 } = require('uuid');
 
 /// <summary>
 /// Creates a new content
@@ -17,9 +21,21 @@ exports.createContent = async (req, res) => {
         return res.status(401).json({ error: 'Unauthorized' });
     }
 
+    const file = req.file;
+    if (!file) {
+        return res.status(400).json({ error: 'No file uploaded' });
+    }
+
     const id = uuidv4();
     const { name, description, categoryId } = req.body;
-    const path = categoryId + '/' + id;
+
+    // Create category directory if it doesn't exist
+    const dir = path.join(__dirname, '../uploads', categoryId);
+    if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir, { recursive: true });
+    }
+
+    const finalPath = path.join(dir, id);
 
     try {
         const newContent = await Content.create(
@@ -29,9 +45,12 @@ exports.createContent = async (req, res) => {
                 description: description,
                 userId: req.user.id,
                 categoryId: categoryId,
-                path: path
+                path: finalPath
             }
         );
+
+        // Move/rename file
+        fs.renameSync(file.path, finalPath);
 
         res.status(201).json(newContent);
     } catch (err) {
@@ -115,78 +134,80 @@ exports.listContents = async (req, res) => {
 };
 
 /// <summary>
-/// Updates a category
+/// Updates content metadata
 /// </summary>
-// exports.updateCategory = async (req, res) => {
-//     if (!req.user) {
-//         return res.status(401).json({ error: 'Unauthorized' });
-//     }
+exports.updateContent = async (req, res) => {
 
-//     const { name, description, parentId } = req.body;
+    if (!req.user) {
+        return res.status(401).json({ error: 'Unauthorized' });
+    }
 
-//     try {
-//         const category = await Category.findByPk(
-//             req.params.id,
-//             {
-//                 include: {
-//                     model: db.User,
-//                     as: 'creator', // alias for the user who created the category
-//                     attributes: ['id', 'username'] // only fetch selected user fields
-//                 }
-//             });
+    const { name, description, categoryId } = req.body;
 
-//         if (!category) {
-//             return res.status(404).json({ error: 'Category was not found' });
-//         }
+    try {
+        const content = await Content.findByPk(
+            req.params.id,
+            {
+                include: {
+                    model: db.User,
+                    as: 'creator', // alias for the user who created the category
+                    attributes: ['id', 'username'] // only fetch selected user fields
+                }
+            });
 
-//         if (category.userId !== req.user.id && !req.user.isAdmin) {
-//             return res.status(403).json({ error: 'You are not authorized to update this category' });
-//         }
+        if (!content) {
+            return res.status(404).json({ error: 'Content was not found' });
+        }
 
-//         category.name = name;
-//         category.description = description;
-//         category.parentId = parentId;
+        if (content.userId !== req.user.id && !req.user.isAdmin) {
+            return res.status(403).json({ error: 'You are not authorized to update this content' });
+        }
 
-//         await category.save();
+        content.name = name;
+        content.description = description;
+        content.categoryId = categoryId;
 
-//         res.status(200).json(category);
-//     } catch (err) {
+        await content.save();
 
-//         if (err instanceof ValidationError || err instanceof UniqueConstraintError) {
-//             const errors = err.errors.map(e => e.message);
-//             return res.status(400).json({ errors });
-//         }
+        res.status(200).json(content);
+    }
+    catch (err) {
 
-//         console.error(err);
-//         res.status(500).json({ error: 'Failed to update the category' });
-//     }
-// };
+        if (err instanceof ValidationError || err instanceof UniqueConstraintError) {
+            return res.status(400).json({ error: err.errors[0].message });
+        }
+
+        console.error(err);
+        res.status(500).json({ error: 'Failed to update the content metadata' });
+    }
+};
 
 /// <summary>
-/// Deletes a category by ID
+/// Deletes content
 /// </summary>
-// exports.deleteCategory = async (req, res) => {
-//     if (!req.user) {
-//         return res.status(401).json({ error: 'Unauthorized' });
-//     }
+exports.deleteCategory = async (req, res) => {
 
-//     try {
-//         const category = await Category.findByPk(req.params.id);
+    if (!req.user) {
+        return res.status(401).json({ error: 'Unauthorized' });
+    }
 
-//         if (!category) {
-//             return res.status(404).json({ error: 'Category was not found' });
-//         }
+    try {
+        const content = await Content.findByPk(req.params.id);
 
-//         if (category.userId !== req.user.id && !req.user.isAdmin) {
-//             return res.status(403).json({ error: 'You are not authorized to delete this category' });
-//         }
+        if (!content) {
+            return res.status(404).json({ error: 'Content was not found' });
+        }
 
-//         await category.destroy();
+        if (content.userId !== req.user.id && !req.user.isAdmin) {
+            return res.status(403).json({ error: 'You are not authorized to delete this content' });
+        }
 
-//         res.status(204).send();
-//     } catch (err) {
-//         console.error(err);
-//         res.status(500).json({ error: 'Failed to delete the category' });
-//     }
-// };
+        await content.destroy();
+
+        res.status(204).send();
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Failed to delete the content' });
+    }
+};
 
