@@ -11,11 +11,11 @@ import Header from "./componets/Header/Header";
 import RegisterPage from "./Pages/Profile/RegisterPage"
 import FilesPage from "./Pages/Files/FilesPage";
 import LoginPage from "./Pages/Profile/LoginPage";
+import ProfilePage from "./Pages/Profile/ProfilePage";
 
 import 'mdb-react-ui-kit/dist/css/mdb.min.css';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 
 function AppLayout() {
     return <>
@@ -51,6 +51,14 @@ const router = createBrowserRouter([
             {
                 path: "register",
                 element: (<RegisterPage/>),
+            },
+            {
+                path: "profile",
+                element: (<ProfilePage/>),
+            },
+            {
+                path: "profile",
+                element: (<ProfilePage/>),
             },
         ]
     }
