@@ -9,8 +9,6 @@ export async function registerUser(formData) {
         lastName: formData.lastName
     };
 
-    console.log(orderedRegData);
-
     try{
         const response = await axios.post(
             `${process.env.REACT_APP_API_BASE_URL}/user`,
@@ -27,7 +25,7 @@ export async function registerUser(formData) {
         return {
             status: error.response.status,
             success: false,
-            message: error.response.data.errors[0]
+            message: error.response.data.error
         }
     }
 }
