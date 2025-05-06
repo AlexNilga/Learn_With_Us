@@ -127,7 +127,8 @@ router.get('/', authenticateToken, (req, res) => { contentController.listContent
  *         required: true
  *         description: ID of the content to update
  *         schema:
- *           type: integer
+ *           type: string
+ *           format: uuid
  *     requestBody:
  *       required: true
  *       content:
@@ -170,7 +171,8 @@ router.patch('/:id', authenticateToken, (req, res) => { contentController.update
  *         required: true
  *         description: ID of the content to delete
  *         schema:
- *           type: integer
+ *           type: string
+ *           format: uuid
  *     security:
  *       - bearerAuth: []
  *     responses:

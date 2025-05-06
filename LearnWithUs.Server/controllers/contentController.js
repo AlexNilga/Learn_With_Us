@@ -185,7 +185,7 @@ exports.updateContent = async (req, res) => {
 /// <summary>
 /// Deletes content
 /// </summary>
-exports.deleteCategory = async (req, res) => {
+exports.deleteContent = async (req, res) => {
 
     if (!req.user) {
         return res.status(401).json({ error: 'Unauthorized' });
@@ -201,6 +201,14 @@ exports.deleteCategory = async (req, res) => {
         if (content.userId !== req.user.id && !req.user.isAdmin) {
             return res.status(403).json({ error: 'You are not authorized to delete this content' });
         }
+
+        fs.unlink(content.path, (err) => {
+            if (err) {
+              console.error('Error deleting file:', err);
+              return;
+            }
+            console.log('File deleted successfully');
+          });
 
         await content.destroy();
 
