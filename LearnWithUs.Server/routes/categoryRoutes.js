@@ -71,6 +71,19 @@ router.get('/:id', authenticateToken, (req, res) => { categoryController.getCate
  *   get:
  *     summary: Get all categories
  *     tags: [Categories]
+ *     parameters:
+ *       - name: parentId
+ *         in: query
+ *         required: false
+ *         description: Optional filter by parent category ID
+ *         schema:
+ *           type: integer
+ *       - name: userId
+ *         in: query
+ *         required: false
+ *         description: Optional filter by user ID
+ *         schema:
+ *           type: integer
  *     security:
  *       - bearerAuth: []
  *     responses:

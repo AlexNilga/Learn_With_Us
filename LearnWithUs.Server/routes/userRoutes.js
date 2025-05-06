@@ -67,8 +67,6 @@ router.post('/', authenticateToken, (req, res) => { userController.createUser(re
  *                 type: string
  *               password:
  *                 type: string
- *     security:
- *      - bearerAuth: []
  *     responses:
  *       200:
  *         description: JWT token

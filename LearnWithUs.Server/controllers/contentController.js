@@ -82,9 +82,8 @@ exports.listContents = async (req, res) => {
         return res.status(401).json({ error: 'Unauthorized' });
     }
 
-    const { categoryId, userId } = req.query;
-
     // Build the where clause based on the provided query parameters
+    const { categoryId, userId } = req.query;
     const where = {};
     if (categoryId) where.categoryId = categoryId;
     if (userId) where.userId = userId;

@@ -76,14 +76,34 @@ exports.listCategories = async (req, res) => {
         return res.status(401).json({ error: 'Unauthorized' });
     }
 
+    // Build the where clause based on the provided query parameters
+    const { parentId, userId } = req.query;
+    const where = {};
+    if (parentId) where.parentId = parentId;
+    if (userId) where.userId = userId;
+
     try {
-        const categories = await Category.findAll({
-            include: {
-                model: db.User,
-                as: 'creator', // alias for the user who created the category
-                attributes: ['id', 'username'] // only fetch selected user fields
-            }
-        });
+        const categories = await Category.findAll(
+            {
+                where: where,
+                include: [
+                    {
+                        model: db.User,
+                        as: 'creator', // alias for the user who created the category
+                        attributes: ['id', 'username'] // only fetch selected user fields
+                    },
+                    {
+                        model: db.Category,
+                        as: 'parent',
+                        attributes: ['id', 'name', 'description']
+                    },
+                    {
+                        model: db.Category,
+                        as: 'children',
+                        attributes: ['id', 'name', 'description']
+                    }
+                ]
+            });
 
         res.status(200).json(categories);
     } catch (err) {
