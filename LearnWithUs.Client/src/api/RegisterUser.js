@@ -1,18 +1,10 @@
 import axios from "axios";
 
 export async function registerUser(formData) {
-    const orderedRegData = {
-        username: formData.username,
-        password: formData.password,
-        role: formData.role,
-        firstName: formData.firstName,
-        lastName: formData.lastName
-    };
-
-    try{
+    try {
         const response = await axios.post(
             `${process.env.REACT_APP_API_BASE_URL}/user`,
-            orderedRegData,
+            formData,
             {headers: {'Content-Type': 'application/json'}}
         );
 
@@ -21,7 +13,7 @@ export async function registerUser(formData) {
             success: true,
             message: "Success"
         }
-    }catch(error){
+    } catch (error) {
         return {
             status: error.response.status,
             success: false,
@@ -31,21 +23,23 @@ export async function registerUser(formData) {
 }
 
 export async function loginUser(formData) {
-    const orderedLogData = {
-        username: formData.username,
-        password: formData.password,
-    };
-
-    console.log(orderedLogData);
     try {
-        const {data} = await axios.post(
+        const response = await axios.post(
             `${process.env.REACT_APP_API_BASE_URL}/user/login`,
-            orderedLogData,
+            formData,
             {headers: {'Content-Type': 'application/json'}}
         );
-        console.log('Success:', data);
-        localStorage.setItem("token", data.token);
+        localStorage.setItem("token", response.data.token);
+        return {
+            status: response.status,
+            success: true,
+            message: "Success"
+        }
     } catch (error) {
-        console.error('Submission error:', error.response || error);
+        return {
+            status: error.response.status,
+            success: false,
+            message: error.response.data.error
+        }
     }
 }
