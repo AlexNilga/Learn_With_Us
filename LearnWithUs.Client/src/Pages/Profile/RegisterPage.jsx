@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import "./ProfilePage.css";
-import {loginUser, registerUser} from "../../api/RegisterUser";
+import {registerUser} from "../../api/RegisterUser";
 import {useNavigate} from "react-router-dom";
 
 export default function RegisterPage() {
@@ -72,7 +72,7 @@ export default function RegisterPage() {
                     onChange={handleInputChange}
                     required
                 />
-                <label>Email Address</label>
+                <label>Username(email address)</label>
             </div>
             <div className="input-group">
                 <input

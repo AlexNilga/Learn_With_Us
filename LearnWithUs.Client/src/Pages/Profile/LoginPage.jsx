@@ -1,16 +1,20 @@
 import React, {useState} from 'react';
 import "./ProfilePage.css";
 import {loginUser} from "../../api/RegisterUser";
+import {useNavigate} from "react-router-dom";
 
 export default function LoginPage() {
-    const [loginData, setLoginData] = useState({
+    const [formData, setFormData] = useState({
         username: '',
         password: '',
     });
+    const [errorMsg, setErrorMsg] = useState("");
+    const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
     const handleInputChange = (e) => {
         const {name, value} = e.target;
-        setLoginData(prevState => ({
+        setFormData(prevState => ({
             ...prevState,
             [name]: value
         }));
@@ -18,7 +22,18 @@ export default function LoginPage() {
 
     const handleSubmit = async e => {
         e.preventDefault();
-        await loginUser(loginData);
+        setErrorMsg("");
+        setLoading(true);
+
+        const response = await loginUser(formData);
+        console.log("Response message:", response);
+
+        if (response.success) {
+            navigate("/");
+        }else{
+            setErrorMsg(response.message);
+        }
+        setLoading(false);
     };
 
     return (
@@ -28,23 +43,26 @@ export default function LoginPage() {
                     <input
                         type="username"
                         name="username"
-                        value={loginData.username}
+                        value={formData.username}
                         onChange={handleInputChange}
                         required
                     />
-                    <label>Email Address</label>
+                    <label>Username(email address)</label>
                 </div>
                 <div className="input-group">
                     <input
                         type="password"
                         name="password"
-                        value={loginData.password}
+                        value={formData.password}
                         onChange={handleInputChange}
                         required
                     />
                     <label>Password</label>
                 </div>
-                <button type="submit">Sign In</button>
+                <button type="submit" disabled={loading}>
+                    {loading ? "Registering…" : "Sign In"}
+                </button>
+                {errorMsg && <div className="error-message">{errorMsg}</div>}
             </form>
     );
 }
