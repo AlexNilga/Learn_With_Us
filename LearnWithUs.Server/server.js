@@ -1,14 +1,11 @@
 const app = require('./learnWithUsApp');
 const db = require('./models');
-const initDatabase = require('./databaseInit');
 
 const PORT = 3000;
 
 (async () => {
     try {
         await db.sequelize.authenticate();
-
-        await initDatabase();
 
         const server = app.listen(PORT, () => {
             console.log(`Server is running at http://localhost:${PORT}`);

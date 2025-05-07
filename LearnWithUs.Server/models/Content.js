@@ -1,3 +1,4 @@
+const { all } = require("../learnWithUsApp");
 
 module.exports = (sequelize, DataTypes) => {
   const Content = sequelize.define(
@@ -6,6 +7,7 @@ module.exports = (sequelize, DataTypes) => {
       // Define columns
       id: {
         type: DataTypes.UUID,
+        allowNull: false,
         primaryKey: true
       },
       path: {
@@ -32,6 +34,14 @@ module.exports = (sequelize, DataTypes) => {
           }
         }
       },
+      mimeType: {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
+      size: {
+        type: DataTypes.INTEGER,
+        allowNull: true
+      },      
       userId: {
         type: DataTypes.INTEGER,
         allowNull: true
@@ -39,6 +49,11 @@ module.exports = (sequelize, DataTypes) => {
       categoryId: {
         type: DataTypes.INTEGER,
         allowNull: false
+      },
+      createdAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: DataTypes.NOW
       },
     },
     {
@@ -63,6 +78,11 @@ module.exports = (sequelize, DataTypes) => {
     Content.belongsTo(models.Category, {
       foreignKey: 'categoryId',
       as: 'category',
+    });
+
+    Content.hasMany(models.ContentComment, {
+      foreignKey: 'contentId',
+      as: 'contentComments',
     });
   };
 

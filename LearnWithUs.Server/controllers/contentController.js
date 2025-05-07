@@ -45,7 +45,9 @@ exports.createContent = async (req, res) => {
                 description: description,
                 userId: req.user.id,
                 categoryId: categoryId,
-                path: finalPath
+                path: finalPath,
+                mimeType: file.mimetype,
+                size: file.size
             }
         );
 

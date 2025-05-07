@@ -58,6 +58,7 @@ module.exports = (sequelize, DataTypes) => {
   };
 
   User.associate = (models) => {
+
     User.hasMany(models.Category, {
       foreignKey: 'userId',
       as: 'categories',
@@ -67,6 +68,12 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'userId',
       as: 'contents',
     });
+
+    User.hasMany(models.ContentComment, {
+      foreignKey: 'userId',
+      as: 'contentComments',
+    });
+
   };
 
   return User;
