@@ -1,4 +1,6 @@
 
+'use strict';
+
 const { v4: uuidv4 } = require('uuid');
 
 const fs = require('fs');
@@ -11,6 +13,7 @@ const {
 
 const db = require('../models');
 const Content = db.Content;
+const ContentComment = db.ContentComment;
 
 /// <summary>
 /// Creates a new content
@@ -220,4 +223,37 @@ exports.deleteContent = async (req, res) => {
         res.status(500).json({ error: 'Failed to delete the content' });
     }
 };
+
+/// <summary>
+/// Creates a new comment for the content
+/// </summary>
+exports.createContentComment = async (req, res) => {
+    if (!req.user) {
+        return res.status(401).json({ error: 'Unauthorized' });
+    }
+
+    const contentId = req.params.contentId;
+    const userId = req.user.id;
+
+    const { text } = req.body;
+
+    try {
+        const content = await Content.findByPk(contentId);
+
+        if (!content) {
+            return res.status(404).json({ error: 'Content was not found' });
+        }
+
+        const comment = await ContentComment.create({
+            contentId: contentId,
+            text: text,
+            userId: userId
+        });
+
+        res.status(201).json(comment);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Failed to create comment' });
+    }
+}
 

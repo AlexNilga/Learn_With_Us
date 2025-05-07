@@ -185,4 +185,43 @@ router.patch('/:id', authenticateToken, (req, res) => { contentController.update
  */
 router.delete('/:id', authenticateToken, (req, res) => { contentController.deleteContent(req, res) });
 
+/**
+ * @swagger
+ * /content/{contentId}/comment:
+ *   post:
+ *     summary: Create a new comment to a content
+ *     tags: [Content]
+ *     parameters:
+ *       - in: path
+ *         name: contentId
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *         description: The ID of the content to comment on
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               text:
+ *                 type: string
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       201:
+ *         description: Content comment created successfully
+ *       400:
+ *         description: Validation error
+ *       500:
+ *         description: Internal server error
+ */
+router.post(
+    '/:contentId/comment',
+    authenticateToken,
+    upload.single('file'),
+    async (req, res) => { contentController.createContentComment(req, res) });
+
 module.exports = router;
