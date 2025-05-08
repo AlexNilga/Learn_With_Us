@@ -3,7 +3,7 @@
 
 const { v4: uuidv4 } = require('uuid');
 
-const fs = require('fs');
+const fileStorage = require('fs');
 const path = require('path');
 
 const {
@@ -37,8 +37,8 @@ exports.createContent = async (req, res) => {
 
     // Create category directory if it doesn't exist
     const dir = path.join(__dirname, '../uploads', categoryId);
-    if (!fs.existsSync(dir)) {
-        fs.mkdirSync(dir, { recursive: true });
+    if (!fileStorage.existsSync(dir)) {
+        fileStorage.mkdirSync(dir, { recursive: true });
     }
 
     const finalPath = path.join(dir, id);
@@ -58,7 +58,7 @@ exports.createContent = async (req, res) => {
         );
 
         // Move/rename file
-        fs.renameSync(file.path, finalPath);
+        fileStorage.renameSync(file.path, finalPath);
 
         res.status(201).json(newContent);
     } catch (err) {

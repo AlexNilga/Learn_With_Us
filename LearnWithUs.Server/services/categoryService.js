@@ -1,7 +1,6 @@
 const db = require('../models');
 const Category = db.Category;
 const Content = db.Content;
-const sequelize = db.sequelize;
 
 const contentService = require('../services/contentService');
 

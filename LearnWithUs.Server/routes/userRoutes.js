@@ -94,7 +94,7 @@ router.post('/login', userController.loginUser);
  *       200:
  *         description: User object
  */
-router.get('/:id', authenticateToken, (req, res) => { userController.getUserById(req, res) });
+router.get('/:id', authenticateToken, (req, res) => { userController.getUser(req, res) });
 
 /**
  * @swagger
@@ -113,10 +113,17 @@ router.get('/', authenticateToken, (req, res) => { userController.listUsers(req,
 
 /**
  * @swagger
- * /user:
+ * /user/{id}:
  *   patch:
  *     summary: Update user
  *     tags: [Users]
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         description: ID of the user to update
+ *         schema:
+ *           type: integer
  *     requestBody:
  *       required: true
  *       content:
@@ -136,6 +143,6 @@ router.get('/', authenticateToken, (req, res) => { userController.listUsers(req,
  *       200:
  *         description: User updated successfully
  */
-router.patch('/', authenticateToken, (req, res) => { userController.updateUser(req, res)});
+router.patch('/:id', authenticateToken, (req, res) => { userController.updateUser(req, res)});
 
 module.exports = router;

@@ -1,11 +1,11 @@
-const fs = require('fs');
+const fileStorage = require('fs');
 
 /// <summary>
 /// Deletes content
 /// </summary>
 exports.deleteContent = async (content) => {
 
-    fs.unlink(content.path, (err) => {
+    fileStorage.unlink(content.path, (err) => {
         if (err) {
             console.error('Error deleting file:', err);
             return;
