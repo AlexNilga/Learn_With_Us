@@ -6,6 +6,8 @@ const {
 const db = require('../models');
 const Category = db.Category;
 
+const categoryService = require('../services/categoryService');
+
 /// <summary>
 /// Creates a new category
 /// </summary>
@@ -96,11 +98,6 @@ exports.listCategories = async (req, res) => {
                         model: db.Category,
                         as: 'parent',
                         attributes: ['id', 'name', 'description']
-                    },
-                    {
-                        model: db.Category,
-                        as: 'children',
-                        attributes: ['id', 'name', 'description']
                     }
                 ]
             });
@@ -141,6 +138,10 @@ exports.updateCategory = async (req, res) => {
             return res.status(403).json({ error: 'You are not authorized to update this category' });
         }
 
+        if (category.id === parentId) {
+            return res.status(404).json({ error: 'Category cannot be nested to itself' });
+        }
+
         category.name = name;
         category.description = description;
         category.parentId = parentId;
@@ -179,7 +180,7 @@ exports.deleteCategory = async (req, res) => {
             return res.status(403).json({ error: 'You are not authorized to delete this category' });
         }
 
-        await category.destroy();
+        await categoryService.deleteCategory(category);
 
         res.status(204).send();
     } catch (err) {

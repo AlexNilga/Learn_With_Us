@@ -15,6 +15,9 @@ const db = require('../models');
 const Content = db.Content;
 const ContentComment = db.ContentComment;
 
+const contentService = require('../services/contentService');
+
+
 /// <summary>
 /// Creates a new content
 /// </summary>
@@ -207,15 +210,7 @@ exports.deleteContent = async (req, res) => {
             return res.status(403).json({ error: 'You are not authorized to delete this content' });
         }
 
-        fs.unlink(content.path, (err) => {
-            if (err) {
-              console.error('Error deleting file:', err);
-              return;
-            }
-            console.log('File deleted successfully');
-          });
-
-        await content.destroy();
+        await contentService.deleteContent(content);
 
         res.status(204).send();
     } catch (err) {

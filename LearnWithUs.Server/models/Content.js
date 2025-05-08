@@ -1,4 +1,3 @@
-const { all } = require("../learnWithUsApp");
 
 module.exports = (sequelize, DataTypes) => {
   const Content = sequelize.define(
@@ -70,6 +69,7 @@ module.exports = (sequelize, DataTypes) => {
   };
 
   Content.associate = (models) => {
+
     Content.belongsTo(models.User, {
       foreignKey: 'userId',
       as: 'creator',
