@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import "./ProfilePage.css";
-import {loginUser} from "../../api/RegisterUser";
+import {loginUser} from "../../api/LoginUser";
 import {useNavigate} from "react-router-dom";
 
 export default function LoginPage() {
+
     const [formData, setFormData] = useState({
         username: '',
         password: '',
