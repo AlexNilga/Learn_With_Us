@@ -6,11 +6,10 @@ module.exports = {
 
     // Fetch the user IDs from the database (assuming there are already users)
     //const users = await queryInterface.sequelize.query('SELECT id FROM Users', { type: Sequelize.QueryTypes.SELECT });
-
     //const userId = users[0].id; // Taking the first user as an example
 
     await queryInterface.bulkInsert(
-      'Categories',
+      'Category',
       [
         {
           name: 'Math',

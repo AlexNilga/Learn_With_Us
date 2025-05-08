@@ -11,12 +11,12 @@ module.exports = (sequelize, DataTypes) => {
         autoIncrement: true
       },
       text: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         validate: {
           notEmpty: { msg: "Content comment text cannot be empty" },
           len: {
-            args: [3, 1000],
-            msg: "Comment must be from 3 to 1000 characters"
+            args: [10, 4000],
+            msg: "Comment must be from 10 to 4000 characters"
           }
         }
       },
@@ -35,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
     {
-      tableName: 'ContentComments', // actual table name
+      tableName: 'ContentComment', // actual table name
       timestamps: false   // Disable if your table doesn't use timestamps
     }
   );

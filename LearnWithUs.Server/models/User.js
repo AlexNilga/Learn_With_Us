@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
         autoIncrement: true,
       },
       username: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(255), // 255 characters max
         allowNull: false, // ensures it's not null
         unique: { msg: 'Username has already been taken' },
         validate: {
@@ -20,13 +20,13 @@ module.exports = (sequelize, DataTypes) => {
         }
       },
       password: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(255), // 255 characters max
         validate: {
           notEmpty: { msg: "Password is required" }
         }
       },
       role: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(10),
         validate: {
           isIn: {
             args: [['Admin', 'User']],
@@ -36,16 +36,30 @@ module.exports = (sequelize, DataTypes) => {
         defaultValue: "User"
       },
       firstName: {
-        type: DataTypes.STRING,
-        allowNull: false // ensures it's not null
+        type: DataTypes.STRING(100),
+        allowNull: false, // ensures it's not null
+        validate: {
+          notEmpty: { msg: "First name is required" }, // ensures it's not an empty string
+          len: {
+            args: [2, 100],
+            msg: "First name must be from 2 to 100 characters"
+          }
+        },
       },
       lastName: {
-        type: DataTypes.STRING,
-        allowNull: false // ensures it's not null
+        type: DataTypes.STRING(100),
+        allowNull: false, // ensures it's not null
+        validate: {
+          notEmpty: { msg: "Last name is required" }, // ensures it's not an empty string
+          len: {
+            args: [2, 100],
+            msg: "Last name must be from 2 to 100 characters"
+          }
+        }
       },
     },
     {
-      tableName: 'Users', // Match your actual table name
+      tableName: 'User', // Match your actual table name
       timestamps: false   // Disable if your table doesn't use timestamps
     },
   );

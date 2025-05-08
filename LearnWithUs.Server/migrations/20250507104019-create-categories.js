@@ -3,19 +3,19 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await queryInterface.createTable('Categories', {
+    await queryInterface.createTable('Category', {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
       name: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(500),
         allowNull: false,
         unique: true
       },
       description: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
         allowNull: false,
       },
       parentId: {
@@ -26,7 +26,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: true,
         references: {
-          model: 'Users', // name of the target table
+          model: 'User', // name of the target table
           key: 'id',      // key in the target table
         },
         onUpdate: 'CASCADE',
@@ -39,12 +39,12 @@ module.exports = {
       },
     });
 
-    await queryInterface.addConstraint('Categories', {
+    await queryInterface.addConstraint('Category', {
       fields: ['parentId'],
       type: 'foreign key',
       name: 'fk_category_parent',
       references: {
-        table: 'Categories',
+        table: 'Category',
         field: 'id',
       },
       onUpdate: 'NO ACTION',
@@ -53,6 +53,6 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-    await queryInterface.dropTable('Categories');
+    await queryInterface.dropTable('Category');
   }
 };

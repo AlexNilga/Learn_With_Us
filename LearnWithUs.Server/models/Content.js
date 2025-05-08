@@ -10,11 +10,11 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true
       },
       path: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(2048),
         allowNull: false
       },
       name: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(1000),
         validate: {
           notEmpty: { msg: "Content name cannot be empty" },
           len: {
@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
         }
       },
       description: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         validate: {
           notEmpty: { msg: "Content description cannot be empty" },
           len: {
@@ -34,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
         }
       },
       mimeType: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(100),
         allowNull: true
       },
       size: {
@@ -56,7 +56,7 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
     {
-      tableName: 'Contents', // Match your actual table name
+      tableName: 'Content', // Match your actual table name
       timestamps: false   // Disable if your table doesn't use timestamps
     }
   );

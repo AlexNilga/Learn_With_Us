@@ -3,7 +3,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('ContentComments', {
+    await queryInterface.createTable('ContentComment', {
       // Define columns
       id: {
         type: Sequelize.INTEGER,
@@ -19,7 +19,7 @@ module.exports = {
         type: Sequelize.UUID,
         allowNull: false,
         references: {
-          model: 'Contents', // name of the target table
+          model: 'Content', // name of the target table
           key: 'id',      // key in the target table
         },
         onUpdate: 'CASCADE',
@@ -29,7 +29,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: true,
         references: {
-          model: 'Users', // name of the target table
+          model: 'User', // name of the target table
           key: 'id',      // key in the target table
         },
         onUpdate: 'CASCADE',
@@ -44,6 +44,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('ContentComments');
+    await queryInterface.dropTable('ContentComment');
   }
 };

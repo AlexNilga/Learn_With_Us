@@ -3,26 +3,26 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await queryInterface.createTable('Contents', {
+    await queryInterface.createTable('Content', {
       id: {
         type: Sequelize.UUID,
         defaultValue: Sequelize.literal('NEWID()'),
         primaryKey: true
       },
       path: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(2048),
         allowNull: false
       },
       name: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(1000),
         allowNull: false
       },
       description: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
         allowNull: false
       },
       mimeType: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(100),
         allowNull: true
       },
       size: {
@@ -33,7 +33,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: true,
         references: {
-          model: 'Users', // name of the target table
+          model: 'User', // name of the target table
           key: 'id',      // key in the target table
         },
         onUpdate: 'CASCADE',
@@ -43,7 +43,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'Categories', // name of the target table
+          model: 'Category', // name of the target table
           key: 'id',      // key in the target table
         },
         onUpdate: 'CASCADE',
@@ -58,6 +58,6 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-    await queryInterface.dropTable('Contents');
+    await queryInterface.dropTable('Content');
   }
 };

@@ -10,24 +10,20 @@ module.exports = (sequelize, DataTypes) => {
         autoIncrement: true,
       },
       name: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(500),
         unique: { msg: 'Category name has already been taken' }, // Enforce uniqueness
         validate: {
           notEmpty: { msg: "name cannot be empty" },
           len: {
             args: [3, 500],
-            msg: "description must be between from 10 to 500 characters"
+            msg: "Catgory name must be from 3 to 500 characters"
           }
         }
       },
       description: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         validate: {
-          notEmpty: { msg: "description cannot be empty" },
-          len: {
-            args: [10, 1000],
-            msg: "description must be between from 10 to 1000 characters"
-          }
+          notEmpty: { msg: "description cannot be empty" }
         }
       },
       parentId: {
@@ -45,7 +41,7 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
     {
-      tableName: 'Categories', // Match your actual table name
+      tableName: 'Category', // Match your actual table name
       timestamps: false   // Disable if your table doesn't use timestamps
     }
   );
