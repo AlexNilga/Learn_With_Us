@@ -39,7 +39,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       size: {
         type: DataTypes.INTEGER,
-        allowNull: true
+        allowNull: false
       },      
       userId: {
         type: DataTypes.INTEGER,
