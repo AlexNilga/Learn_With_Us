@@ -2,6 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 
+import 'mdb-react-ui-kit/dist/css/mdb.min.css';
+import "@fortawesome/fontawesome-free/css/all.min.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import WelcomePage from './Pages/Welcome/WelcomePage';
 import reportWebVitals from './reportWebVitals';
 import {createBrowserRouter, Outlet, RouterProvider} from "react-router-dom";
@@ -12,10 +16,7 @@ import RegisterPage from "./Pages/Profile/RegisterPage"
 import FilesPage from "./Pages/Files/FilesPage";
 import LoginPage from "./Pages/Profile/LoginPage";
 import ProfilePage from "./Pages/Profile/ProfilePage";
-
-import 'mdb-react-ui-kit/dist/css/mdb.min.css';
-import "@fortawesome/fontawesome-free/css/all.min.css";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import {AuthProvider} from "./api/AuthContext";
 
 function AppLayout() {
     return <>
@@ -33,31 +34,31 @@ const router = createBrowserRouter([
                 element: (<WelcomePage/>),
             },
             {
-                path: "subjects",
+                path: "/subjects",
                 element: (<SubjectsPage/>),
             },
             {
-                path: "subjects/:subjectId",
+                path: "/subjects/:subjectId",
                 element: (<MaterialsPage/>),
             },
             {
-                path: "subjects/:subjectId/materials",
+                path: "/subjects/:subjectId/materials",
                 element: (<FilesPage/>),
             },
             {
-                path: "login",
+                path: "/login",
                 element: (<LoginPage/>),
             },
             {
-                path: "register",
+                path: "/register",
                 element: (<RegisterPage/>),
             },
             {
-                path: "profile",
+                path: "/profile",
                 element: (<ProfilePage/>),
             },
             {
-                path: "profile",
+                path: "/profile",
                 element: (<ProfilePage/>),
             },
         ]
@@ -67,7 +68,9 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
+        <AuthProvider>
         <RouterProvider router={router}/>
+        </AuthProvider>
     </React.StrictMode>
 )
 

@@ -3,27 +3,9 @@ import SubjectUI from "../../componets/Subjects/SubjectUI";
 import {Col, Row} from "react-bootstrap";
 
 function SubjectsPage() {
-    const URL = 'http://localhost:5281/category'
 
     const [subjects, setSubjects] = useState([])
 
-    useEffect(() => {
-    const fetchPosts = async () => {
-        try {
-            const response = await fetch(URL)
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            const posts = await response.json()
-            // console.log(posts)
-            setSubjects(posts)
-        } catch (e) {
-            console.error('Error fetching posts:', e);
-        }
-
-    }
-    fetchPosts()
-    });
 
     return (
         <>

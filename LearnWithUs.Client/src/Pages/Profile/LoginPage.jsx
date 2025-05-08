@@ -1,9 +1,11 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import "./ProfilePage.css";
-import {loginUser} from "../../api/RegisterUser";
+import {loginUser} from "../../api/LoginUser";
 import {useNavigate} from "react-router-dom";
+import {AuthContext} from "../../api/AuthContext";
 
 export default function LoginPage() {
+    const { login } = useContext(AuthContext);
     const [formData, setFormData] = useState({
         username: '',
         password: '',
@@ -29,6 +31,7 @@ export default function LoginPage() {
         console.log("Response message:", response);
 
         if (response.success) {
+            login(response.token);
             navigate("/");
         }else{
             setErrorMsg(response.message);
