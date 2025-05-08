@@ -8,11 +8,11 @@ export async function loginUser(formData) {
             formData,
             {headers: {'Content-Type': 'application/json'}}
         );
-        localStorage.setItem("token", response.data.token);
         return {
             status: response.status,
             success: true,
             message: "Success",
+            token: response.data.token
         }
     } catch (error) {
         return {
