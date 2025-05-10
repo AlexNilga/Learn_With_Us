@@ -86,7 +86,7 @@ exports.loginUser = async (req, res) => {
 /// <summary>
 /// Finds a user by ID
 /// </summary>
-exports.getUserById = async (req, res) => {
+exports.getUser = async (req, res) => {
     try {
 
         if (!req.user) {

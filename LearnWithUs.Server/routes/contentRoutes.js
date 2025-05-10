@@ -10,7 +10,7 @@ const contentController = require('../controllers/contentController');
 const uploadDir = path.join(__dirname, '../uploads');
 const tmpDir = path.join(uploadDir, 'tmp');
 
-const upload = multer({ dest: tmpDir }); // temporary folder
+const fileUploader = multer({ dest: tmpDir }); // temporary folder
 
 
 /**
@@ -59,7 +59,7 @@ const upload = multer({ dest: tmpDir }); // temporary folder
 router.post(
     '/',
     authenticateToken,
-    upload.single('file'),
+    fileUploader.single('file'),
     async (req, res) => { contentController.createContent(req, res) });
 
 /**
@@ -221,7 +221,7 @@ router.delete('/:id', authenticateToken, (req, res) => { contentController.delet
 router.post(
     '/:contentId/comment',
     authenticateToken,
-    upload.single('file'),
+    fileUploader.single('file'),
     async (req, res) => { contentController.createContentComment(req, res) });
 
 module.exports = router;

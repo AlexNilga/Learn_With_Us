@@ -12,7 +12,7 @@ module.exports = {
         autoIncrement: true
       },
       text: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
         allowNull: false,
       },
       contentId: {
