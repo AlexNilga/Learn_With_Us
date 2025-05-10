@@ -2,14 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 
-import 'mdb-react-ui-kit/dist/css/mdb.min.css';
-import "@fortawesome/fontawesome-free/css/all.min.css";
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'mdb-react-ui-kit/dist/css/mdb.min.css';
+// import "@fortawesome/fontawesome-free/css/all.min.css";
+// import 'bootstrap/dist/css/bootstrap.min.css';
 
 import WelcomePage from './Pages/Welcome/WelcomePage';
 import reportWebVitals from './reportWebVitals';
 import {createBrowserRouter, Outlet, RouterProvider} from "react-router-dom";
-import SubjectsPage from "./Pages/Subjects/SubjectsPage";
+import CategoriesPage from "./Pages/Categories/CategoriesPage";
 import MaterialsPage from "./Pages/Materials/MaterialsPage";
 import Header from "./componets/Header/Header";
 import RegisterPage from "./Pages/Profile/RegisterPage"
@@ -35,7 +35,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "/subjects",
-                element: (<SubjectsPage/>),
+                element: (<CategoriesPage/>),
             },
             {
                 path: "/subjects/:subjectId",
