@@ -80,11 +80,39 @@ router.post(
  *       - bearerAuth: []
  *     responses:
  *       200:
- *         description: Category retrieved successfully
+ *         description: Content metadata retrieved successfully
+ *       401:
+ *         description: Unauthorized
  *       404:
- *         description: Category not found
+ *         description: Content not found
  */
 router.get('/:id', authenticateToken, (req, res) => { contentController.getContent(req, res) });
+
+/**
+ * @swagger
+ * /content/{id}/file:
+ *   get:
+ *     summary: Get content file by content ID
+ *     tags: [Content]
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         description: ID of the content
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Content retrieved successfully
+ *       401:
+ *         description: Unauthorized
+ *       404:
+ *         description: Content not found
+ */
+router.get('/:id/file', authenticateToken, (req, res) => { contentController.getContentFile(req, res) });
 
 /**
  * @swagger

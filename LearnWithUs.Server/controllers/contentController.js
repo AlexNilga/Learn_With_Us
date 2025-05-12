@@ -74,7 +74,7 @@ exports.createContent = async (req, res) => {
 };
 
 /// <summary>
-/// Finds a category by ID
+/// Finds content metadata by ID
 /// </summary>
 exports.getContent = async (req, res) => {
 
@@ -97,6 +97,46 @@ exports.getContent = async (req, res) => {
         }
 
         res.status(200).json(category);
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Failed to find the content' });
+    }
+};
+
+/// <summary>
+/// Finds content metadata by ID
+/// </summary>
+exports.getContentFile = async (req, res) => {
+
+    if (!req.user) {
+        return res.status(401).json({ error: 'Unauthorized' });
+    }
+
+    try {
+        const content = await Content.findByPk(
+            req.params.id, {
+            include: {
+                model: db.User,
+                as: 'creator', // alias for the user who created the category
+                attributes: ['id', 'username'] // only fetch selected user fields
+            }
+        });
+
+        if (!content) {
+            return res.status(404).json({ error: 'Content was not found' });
+        }
+
+        if (!fileStorage.existsSync(content.path)) {
+            return res.status(404).json({ error: 'File not found on disk' });
+        }
+
+        res.set({
+            'Content-Type': content.mimeType,
+            'Content-Disposition': `inline; filename="${content.name}"`,
+          });
+
+        res.sendFile(content.path);
 
     } catch (err) {
         console.error(err);
