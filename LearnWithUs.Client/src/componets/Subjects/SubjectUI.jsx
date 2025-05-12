@@ -32,25 +32,25 @@ function SubjectUI(props) {
 
         //TODO: "Make it work with admin rules"
 
-        // <Subjects>
-        //     <Subjects.Img variant="top" src="holder.js/100px180?text=Image cap" />
-        //     <Subjects.Body>
-        //         <Subjects.Title>Subjects Title</Subjects.Title>
-        //         <Subjects.Text>
+        // <Categories>
+        //     <Categories.Img variant="top" src="holder.js/100px180?text=Image cap" />
+        //     <Categories.Body>
+        //         <Categories.Title>Categories Title</Categories.Title>
+        //         <Categories.Text>
         //             Some quick example text to build on the card title and make up the
         //             bulk of the card's content.
-        //         </Subjects.Text>
-        //     </Subjects.Body>
+        //         </Categories.Text>
+        //     </Categories.Body>
         //     <ListGroup className="list-group-flush">
         //         <ListGroup.Item>Cras justo odio</ListGroup.Item>
         //         <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
         //         <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
         //     </ListGroup>
-        //     <Subjects.Body>
-        //         <Subjects.Link href="#">Subjects Link</Subjects.Link>
-        //         <Subjects.Link href="#">Another Link</Subjects.Link>
-        //     </Subjects.Body>
-        // </Subjects>
+        //     <Categories.Body>
+        //         <Categories.Link href="#">Categories Link</Categories.Link>
+        //         <Categories.Link href="#">Another Link</Categories.Link>
+        //     </Categories.Body>
+        // </Categories>
     )
 }
 
