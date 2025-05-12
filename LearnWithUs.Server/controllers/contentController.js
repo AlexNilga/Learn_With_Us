@@ -32,6 +32,8 @@ exports.createContent = async (req, res) => {
         return res.status(400).json({ error: 'No file uploaded' });
     }
 
+    console.log('Uploaded:', req.file);
+
     const id = uuidv4();
     const { description, categoryId } = req.body;
 
@@ -131,9 +133,11 @@ exports.getContentFile = async (req, res) => {
             return res.status(404).json({ error: 'File not found on disk' });
         }
 
+        const encodedName = encodeURIComponent(content.name);
+
         res.set({
             'Content-Type': content.mimeType,
-            'Content-Disposition': `inline; filename="${content.name}"`,
+            'Content-Disposition': `inline; filename="${encodedName}"`,
           });
 
         res.sendFile(content.path);

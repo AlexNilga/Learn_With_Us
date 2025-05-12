@@ -9,7 +9,8 @@ const contentsRouter = require('./routes/contentRoutes');
 
 const app = express();
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ encoding: 'utf-8' }));
+app.use(express.urlencoded({ extended: true, encoding: 'utf-8' }));
 
 // Swagger definition
 const swaggerDefinition = {
