@@ -80,7 +80,10 @@ router.get('/:id', authenticateToken, (req, res) => { categoryController.getCate
  *         required: false
  *         description: Optional filter by parent category ID
  *         schema:
- *           type: integer
+ *           oneOf:
+ *             - type: integer
+ *             - type: string
+ *               enum: [null]
  *       - name: userId
  *         in: query
  *         required: false

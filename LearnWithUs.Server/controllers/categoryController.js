@@ -80,9 +80,18 @@ exports.listCategories = async (req, res) => {
 
     // Build the where clause based on the provided query parameters
     const { parentId, userId } = req.query;
+
     const where = {};
-    if (parentId) where.parentId = parentId;
-    if (userId) where.userId = userId;
+
+    if (req.query.parentId === 'null') {
+        where.parentId = null;
+    } else if (req.query.parentId !== undefined) {
+        where.parentId = req.query.parentId;
+    }
+
+    if (userId) {
+        where.userId = userId;
+    }
 
     try {
         const categories = await Category.findAll(
