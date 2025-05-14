@@ -83,7 +83,10 @@ exports.listCategories = async (req, res) => {
 
     const where = {};
 
-    if (req.query.parentId === 'null') {
+    if (req.query.parentId === 'null' 
+        || req.query.parentId === '0' 
+        || req.query.parentId === 0 
+        || req.query.parentId === null) {
         where.parentId = null;
     } else if (req.query.parentId !== undefined) {
         where.parentId = req.query.parentId;
