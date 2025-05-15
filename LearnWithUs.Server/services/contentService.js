@@ -10,7 +10,7 @@ exports.deleteContent = async (content) => {
             console.error('Error deleting file:', err);
             return;
         }
-        console.log('File deleted successfully');
+        console.log('Content deleted successfully');
     });
 
     await content.destroy();

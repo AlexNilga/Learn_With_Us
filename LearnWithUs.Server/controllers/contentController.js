@@ -130,7 +130,7 @@ exports.getContentFile = async (req, res) => {
         }
 
         if (!fileStorage.existsSync(content.path)) {
-            return res.status(404).json({ error: 'File not found on disk' });
+            return res.status(404).json({ error: 'Content not found on disk' });
         }
 
         const encodedName = encodeURIComponent(content.name);

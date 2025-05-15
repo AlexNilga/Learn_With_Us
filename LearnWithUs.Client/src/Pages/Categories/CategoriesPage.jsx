@@ -1,15 +1,15 @@
 import React, {useEffect, useState} from "react"
-import {useNavigate} from "react-router-dom";
 
-import "./Categories.css"
+import "./CategoriesPage.css"
 import {getCategories} from "../../api/CategoryAPI";
 import {getContent} from "../../api/ContentAPI";
-import {logDOM} from "@testing-library/react";
+import Content from "../../components/Content/Content";
+import Categories from "../../components/Categories/Categories";
 
 function CategoriesPage() {
     const [categories, setCategories] = useState([]);
     const [content, setContent] = useState([]);
-    const [parentId, setParentId] = useState(null)
+    const [parentId, setParentId] = useState(0)
 
     const [loading, setLoading] = useState(true);
     const [errorCategories, setErrorCategories] = useState("");
@@ -33,7 +33,7 @@ function CategoriesPage() {
         setLoading(true);
 
         const result = await getContent(id);
-        console.log(result);
+        console.log("fetchContent:", result);
         if (result.success) {
             setContent(result.data);
         } else {
@@ -45,6 +45,8 @@ function CategoriesPage() {
     useEffect(() => {
         fetchCategories(parentId)
         fetchContent(parentId)
+
+
     }, [parentId]);
 
     const handleLearnMore = async categoryId => {
@@ -56,7 +58,7 @@ function CategoriesPage() {
     if (loading) {
         return (
             <div className="loading">
-                <spinner animation="border" role="status"/>
+                loading
             </div>
         );
     }
@@ -70,47 +72,72 @@ function CategoriesPage() {
         );
     }
 
-    return (<div>
-            {
-                content ? (
-                        <div className="content-card-container">
-                            {content.map((file) =>
-                                <div key={file.id} className="content-card">
-                                    <div className="content-name">{file.name}</div>
-                                    <div className="content-description">{file.description}</div>
-                                    <button className="download-file">download</button>
-                                </div>
+    return (
+        // <main className="bg-light rounded shadow-sm ">
+            <div className="container p-lg-2 bg-danger">
+                <div className="row p-lg-1">
+                    <div className="col-3 p-1 bg-info">
+                        {
+                            categories.length > 0 ? (
+                                <Categories
+                                    categories={categories}
+                                    onLearnMore={handleLearnMore}
+                                    loading={loading}
+                                />
+                            ) : (
+                                <div className="no-categories">No categories available.</div>
                             )}
-                        </div>
-                    )
-                    : (
-                        <div className="no-content">No content available.</div>
-                    )
-            }
-            {
-                categories ? (
-                    <div className="category-cards">
-                        {categories.map((category) =>
-                            <article key={category.id} className="information category-card">
-                                <span className="tag">Subject</span>
-                                <h2 className="title">{category.name}</h2>
-                                <p className="info">{category.description}</p>
-                                <button className="button" onClick={() => handleLearnMore(category.id)}>
-                                    <span>Learn more</span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24"
-                                         width="24px"
-                                         fill="none">
-                                        <path d="M0 0h24v24H0V0z" fill="none"/>
-                                        <path d="M16.01 11H4v2h12.01v3L20 12l-3.99-4v3z" fill="currentColor"/>
-                                    </svg>
-                                </button>
-                            </article>
-                        )}
                     </div>
-                ) : (
-                    <div className="no-categories">No categories available.</div>
-                )}
-        </div>
+                    <div className="col-9 p-1 bg-success">
+                        {
+                            content.length > 0 ? (
+                                    <Content
+                                        content={content}
+                                        loading={loading}/>
+                                )
+                                : (
+                                    <div className="no-content">No content available.</div>
+                                )
+                        }
+                    </div>
+                </div>
+            </div>
+    
+    // <div class="card border-success mb-3" style="max-width: 18rem;">
+    //     <div class="card-header bg-transparent border-success">Header</div>
+    //     <div class="card-body text-success">
+    //         <h5 class="card-title">Success card title</h5>
+    //         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
+    //     </div>
+    //     <div class="card-footer bg-transparent border-success">Footer</div>
+    // </div>
+        
+        
+        // </main>
+
+
+        // <div className="main-content">
+        //     {
+        //         categories.length > 0 ? (
+        //             <Categories
+        //                 categories={categories}
+        //                 onLearnMore={handleLearnMore}
+        //                 loading={loading}
+        //             />
+        //         ) : (
+        //             <div className="no-categories">No categories available.</div>
+        //         )}
+        //     {
+        //         content.length > 0 ? (
+        //             <Content
+        //                 content={content}
+        //                 loading={loading}/>
+        //             )
+        //             : (
+        //                 <div className="no-content">No content available.</div>
+        //             )
+        //     }
+        // </div>
     );
 }
 

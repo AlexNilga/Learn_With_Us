@@ -1,6 +1,6 @@
-import 'mdb-react-ui-kit/dist/css/mdb.min.css';
-import "@fortawesome/fontawesome-free/css/all.min.css";
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'mdb-react-ui-kit/dist/css/mdb.min.css';
+// import "@fortawesome/fontawesome-free/css/all.min.css";
+// import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
@@ -19,7 +19,7 @@ function Header() {
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="me-auto">
-                        <Nav.Link as={Link} to="categories">Предмети</Nav.Link>
+                        <Nav.Link as={Link} to="categories">Subjects</Nav.Link>
                         <NavDropdown title="Розробка" id="collapsible-nav-dropdown">
                             <NavDropdown.Item href="#action/3.1">далі буде</NavDropdown.Item>
                             <NavDropdown.Item href="#action/3.2">
