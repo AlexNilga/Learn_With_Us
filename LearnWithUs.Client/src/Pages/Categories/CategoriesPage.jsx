@@ -1,64 +1,63 @@
 import React, {useEffect, useState} from "react"
-import SubjectUI from "../../componets/Subjects/SubjectUI";
+import {useNavigate} from "react-router-dom";
 
-import { getCategories } from "../../api/CategoryAPI";
 import "./Categories.css"
-
-
+import {getCategories} from "../../api/CategoryAPI";
 
 function CategoriesPage() {
     const [categories, setCategories] = useState([]);
-    const [loading, setLoading]       = useState(true);
-    const [error, setError]           = useState("");
+    const [parentId, setParentId] = useState(null)
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState("");
+
+    async function fetchCategories(id) {
+        setError("");
+        setLoading(true);
+
+        const result = await getCategories(id);
+        if (result.success) {
+            setCategories(result.data);
+        } else {
+            setError(result.message || "Failed to load categories");
+        }
+        setLoading(false);
+    }
 
     useEffect(() => {
-        async function fetchCategories() {
-            setLoading(true);
-            const result = await getCategories();
-            if (result.success) {
-                setCategories(result.data);
-            } else {
-                setError(result.message || "Failed to load categories");
-            }
-            setLoading(false);
-        }
+        fetchCategories(parentId)
+    }, [parentId]);
 
-        fetchCategories();
-    }, []);
+    const handleLearnMore = async categoryId => {
+        const category = categories.find(c => c.id === categoryId);
+        console.log(category);
+        setParentId(categoryId);
+    };
 
     if (loading) {
         return (
-            <div className="text-center my-5">
-                <spinner animation="border" role="status" />
+            <div className="loading">
+                <spinner animation="border" role="status"/>
             </div>
         );
     }
 
     if (error) {
         return (
-            <alert variant="danger" className="my-5">
+            <div className="error">
                 {error}
-            </alert>
+            </div>
         );
     }
 
     return (
-        // <Row xs={1} md={5} className="g-4 p-5">
-        //     {categories.map((category) => (
-        //         <Col key={category.id}>
-        //             <SubjectUI data={category} />
-        //         </Col>
-        //     ))}
-        // </Row>
-
         <div className="category-cards">
             {categories.map((category) => (
                 <article key={category.id} className="information category-card">
                     <span className="tag">Subject</span>
                     <h2 className="title">{category.name}</h2>
                     <p className="info">{category.description}</p>
-                    <button className="button">
-                        <span>Learn more</span>
+                    <button className="button" onClick={() => handleLearnMore(category.id)}>
+                    <span>Learn more</span>
                         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px"
                              fill="none">
                             <path d="M0 0h24v24H0V0z" fill="none"/>

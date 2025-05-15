@@ -10,10 +10,8 @@ import WelcomePage from './Pages/Welcome/WelcomePage';
 import reportWebVitals from './reportWebVitals';
 import {createBrowserRouter, Outlet, RouterProvider} from "react-router-dom";
 import CategoriesPage from "./Pages/Categories/CategoriesPage";
-import MaterialsPage from "./Pages/Materials/MaterialsPage";
 import Header from "./componets/Header/Header";
 import RegisterPage from "./Pages/Profile/RegisterPage"
-import FilesPage from "./Pages/Files/FilesPage";
 import LoginPage from "./Pages/Profile/LoginPage";
 import ProfilePage from "./Pages/Profile/ProfilePage";
 import {AuthProvider} from "./api/AuthContext";
@@ -34,17 +32,13 @@ const router = createBrowserRouter([
                 element: (<WelcomePage/>),
             },
             {
-                path: "/subjects",
+                path: "/categories",
                 element: (<CategoriesPage/>),
             },
-            {
-                path: "/subjects/:subjectId",
-                element: (<MaterialsPage/>),
-            },
-            {
-                path: "/subjects/:subjectId/materials",
-                element: (<FilesPage/>),
-            },
+            // {
+            //     path: "/categories/:subjectId",
+            //     element: (<ContentPage/>),
+            // },
             {
                 path: "/login",
                 element: (<LoginPage/>),
@@ -52,10 +46,6 @@ const router = createBrowserRouter([
             {
                 path: "/register",
                 element: (<RegisterPage/>),
-            },
-            {
-                path: "/profile",
-                element: (<ProfilePage/>),
             },
             {
                 path: "/profile",

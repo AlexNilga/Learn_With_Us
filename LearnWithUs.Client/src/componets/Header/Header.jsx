@@ -19,7 +19,7 @@ function Header() {
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="me-auto">
-                        <Nav.Link as={Link} to="subjects">Предмети</Nav.Link>
+                        <Nav.Link as={Link} to="categories">Предмети</Nav.Link>
                         <NavDropdown title="Розробка" id="collapsible-nav-dropdown">
                             <NavDropdown.Item href="#action/3.1">далі буде</NavDropdown.Item>
                             <NavDropdown.Item href="#action/3.2">

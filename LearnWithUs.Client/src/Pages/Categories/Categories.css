@@ -1,13 +1,18 @@
 .category-cards {
-    display: flex;
-    flex-wrap: wrap;
+    /*display: flex;*/
+    /*flex-wrap: wrap;*/
     /*align-items: stretch;*/
-    justify-content: space-evenly;
-    gap: 2.5rem;
-    width: 90%;
-    max-width: 2000px;
-    margin: 5vh auto;
-    padding: 1rem;
+    /*justify-content: space-evenly;*/
+    /*gap: 2.5rem;*/
+    /*width: 90%;*/
+    /*max-width: 2000px;*/
+    /*margin: 5vh auto;*/
+    /*padding: 1rem;*/
+
+    display: grid;
+    margin:20px;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
 }
 
 .category-card {

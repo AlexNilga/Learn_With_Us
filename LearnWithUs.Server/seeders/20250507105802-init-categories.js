@@ -13,27 +13,27 @@ module.exports = {
       [
         {
           name: 'Math',
-          description: "Materials related to math",
+          description: "Content related to math",
           userId: 1, // Associate with super admin,
           createdAt: new Date(),
         },
         {
           name: 'Algebra',
-          description: "Materials related to algebra",
+          description: "Content related to algebra",
           userId: 1, // Associate with super admin
           parentId: 1, // Associate with parent category
           createdAt: new Date(),
         },
         {
           name: 'Geometry',
-          description: "Materials related to geometry",
+          description: "Content related to geometry",
           userId: 1, // Associate with super admin
           parentId: 1, // Associate with parent category
           createdAt: new Date(),
         },
         {
           name: 'Psychology',
-          description: "Materials related to psychology",
+          description: "Content related to psychology",
           userId: 1, // Associate with super admin
           createdAt: new Date(),
         }

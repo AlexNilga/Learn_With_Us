@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useContext} from 'react';
+import {useNavigate} from 'react-router-dom';
 import {
     MDBCol,
     MDBContainer,
@@ -10,8 +11,17 @@ import {
     MDBTypography,
     MDBIcon
 } from 'mdb-react-ui-kit';
+import {AuthContext} from '../../api/AuthContext';
 
 export default function PersonalProfile() {
+    const navigate = useNavigate();
+    const {logout} = useContext(AuthContext);
+
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        logout();
+        navigate('/login');
+    };
     return (
         <section className="vh-100" style={{backgroundColor: '#f4f5f7'}}>
             <MDBContainer className="py-5 h-100">
@@ -51,8 +61,14 @@ export default function PersonalProfile() {
                                                 <MDBCardText className="text-muted">oleksii.nilha@nure.ua</MDBCardText>
                                             </MDBCol>
                                             <MDBCol size="6" className="mb-3">
-                                                <MDBTypography tag="h6">.</MDBTypography>
-                                                <MDBCardText className="text-muted">LogOut</MDBCardText>
+                                                <MDBTypography tag="h6">Account</MDBTypography>
+                                                <MDBCardText
+                                                    className="text-muted"
+                                                    onClick={handleLogout}
+                                                    style={{cursor: 'pointer', color: '#dc3545'}}
+                                                >
+                                                    LogOut
+                                                </MDBCardText>
                                             </MDBCol>
                                         </MDBRow>
 

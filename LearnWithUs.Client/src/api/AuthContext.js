@@ -23,15 +23,15 @@ export function AuthProvider({ children }) {
         return () => window.removeEventListener("storage", onStorage);
     }, []);
 
-    const login = (token) => {
+    function login(token) {
         localStorage.setItem("token", token);
         setIsLoggedIn(true);
-    };
+    }
 
-    const logout = () => {
+    function logout () {
         localStorage.removeItem("token");
         setIsLoggedIn(false);
-    };
+    }
 
     return (
         <AuthContext.Provider value={{ isLoggedIn, login, logout }}>
