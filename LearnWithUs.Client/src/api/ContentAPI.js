@@ -6,7 +6,7 @@ export async function getContent(categoryId) {
         const response = await axios.get(
             `${process.env.REACT_APP_API_BASE_URL}/content`,
             {
-                params: categoryId,
+                params: {categoryId:categoryId},
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
