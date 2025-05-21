@@ -73,71 +73,68 @@ function CategoriesPage() {
     }
 
     return (
-        // <main className="bg-light rounded shadow-sm ">
-            <div className="container p-lg-2 bg-danger">
-                <div className="row p-lg-1">
-                    <div className="col-3 p-1 bg-info">
-                        {
-                            categories.length > 0 ? (
-                                <Categories
-                                    categories={categories}
-                                    onLearnMore={handleLearnMore}
-                                    loading={loading}
-                                />
-                            ) : (
-                                <div className="no-categories">No categories available.</div>
-                            )}
-                    </div>
-                    <div className="col-9 p-1 bg-success">
-                        {
-                            content.length > 0 ? (
-                                    <Content
-                                        content={content}
-                                        loading={loading}/>
-                                )
-                                : (
-                                    <div className="no-content">No content available.</div>
-                                )
-                        }
-                    </div>
-                </div>
-            </div>
-    
-    // <div class="card border-success mb-3" style="max-width: 18rem;">
-    //     <div class="card-header bg-transparent border-success">Header</div>
-    //     <div class="card-body text-success">
-    //         <h5 class="card-title">Success card title</h5>
-    //         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
-    //     </div>
-    //     <div class="card-footer bg-transparent border-success">Footer</div>
-    // </div>
-        
-        
-        // </main>
-
-
-        // <div className="main-content">
-        //     {
-        //         categories.length > 0 ? (
-        //             <Categories
-        //                 categories={categories}
-        //                 onLearnMore={handleLearnMore}
-        //                 loading={loading}
-        //             />
-        //         ) : (
-        //             <div className="no-categories">No categories available.</div>
-        //         )}
-        //     {
-        //         content.length > 0 ? (
-        //             <Content
-        //                 content={content}
-        //                 loading={loading}/>
-        //             )
-        //             : (
-        //                 <div className="no-content">No content available.</div>
-        //             )
-        //     }
-        // </div>
+        // // <main className="bg-light rounded shadow-sm ">
+        //     <div className="container p-lg-2 bg-danger">
+        //         <div className="row p-lg-1">
+        //             <div className="col-3 p-1 bg-info">
+        //                 {
+        //                     categories.length > 0 ? (
+        //                         <Categories
+        //                             categories={categories}
+        //                             onLearnMore={handleLearnMore}
+        //                             loading={loading}
+        //                         />
+        //                     ) : (
+        //                         <div className="no-categories">No categories available.</div>
+        //                     )}
+        //             </div>
+        //             <div className="col-9 p-1 bg-success">
+        //                 {
+        //                     content.length > 0 ? (
+        //                             <Content
+        //                                 content={content}
+        //                                 loading={loading}/>
+        //                         )
+        //                         : (
+        //                             <div className="no-content">No content available.</div>
+        //                         )
+        //                 }
+        //             </div>
+        //         </div>
+        //     </div>
+        //     <div class="card border-success mb-3" style="max-width: 18rem;">
+        //         <div class="card-header bg-transparent border-success">Header</div>
+        //         <div class="card-body text-success">
+        //             <h5 class="card-title">Success card title</h5>
+        //             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
+        //         </div>
+        //         <div class="card-footer bg-transparent border-success">Footer</div>
+        //     </div>
+        //     </main>
+    <>
+        <div className="main-content">
+            {
+                categories.length > 0 ? (
+                    <Categories
+                        categories={categories}
+                        onLearnMore={handleLearnMore}
+                        loading={loading}
+                    />
+                ) : (
+                    <div className="no-categories">No categories available.</div>
+                )}
+            {
+                content.length > 0 ? (
+                    <Content
+                        content={content}
+                        loading={loading}/>
+                    )
+                    : (
+                        <div className="no-content">No content available.</div>
+                    )
+            }
+        </div>
+    </>
     );
 }
 

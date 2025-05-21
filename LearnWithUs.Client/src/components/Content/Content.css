@@ -1,4 +1,18 @@
-/* From Uiverse.io by Yaya12085 */
+.content-header {
+    text-align: center;
+    margin: 20px;
+    /*margin-top: 1.5rem;*/
+    /*margin-bottom: 1.5rem;*/
+    font-size: 3rem;
+    line-height: 1.2;
+    font-weight: 500;
+}
+hr {
+    margin: 30px -20px 20px;
+    border: 0;
+    border-top: 5px solid rgb(43, 48, 53);
+}
+
 .card {
     max-width: 320px;
     border-width: 1px;

@@ -1,6 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-
+import './Categories.css';
 const Categories = ({categories, onLearnMore, loading}) => {
     if (loading) {
         return (
@@ -14,8 +13,10 @@ const Categories = ({categories, onLearnMore, loading}) => {
         return <div className="no-categories">No categories available.</div>;
     }
 
-    return (
+    return (<>
+        <div className="category-header">Предмети</div>
         <div className="category-cards">
+
             {categories.map((category) => (
                 <article key={category.id} className="information category-card">
                     <span className="tag">Subject</span>
@@ -33,19 +34,9 @@ const Categories = ({categories, onLearnMore, loading}) => {
                 </article>
             ))}
         </div>
+            <hr/>
+        </>
     );
-};
-
-Categories.propTypes = {
-    categories: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            name: PropTypes.string.isRequired,
-            description: PropTypes.string.isRequired
-        })
-    ).isRequired,
-    onLearnMore: PropTypes.func.isRequired,
-    loading: PropTypes.bool.isRequired
 };
 
 export default Categories;

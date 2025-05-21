@@ -10,16 +10,19 @@ const Content = ({content, loading}) => {
         );
     }
 
-    return (
-        <div className="content-card-container">
-            {content.map((file) =>
-                <div key={file.id} className="content-card">
-                    <div className="content-name">{file.name}</div>
-                    <div className="content-description">{file.description}</div>
-                    <button className="download-file">download</button>
-                </div>
-            )}
-        </div>
+    return (<>
+            <div className="content-header">Матеріали</div>
+            <div className="content-card-container">
+                {content.map((file) =>
+                    <div key={file.id} className="content-card">
+                        <div className="content-name">{file.name}</div>
+                        <div className="content-description">{file.description}</div>
+                        <button className="download-file">download</button>
+                    </div>
+                )}
+            </div>
+            <hr/>
+        </>
     );
 };
 
