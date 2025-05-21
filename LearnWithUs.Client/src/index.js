@@ -1,5 +1,3 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './index.css';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
@@ -12,6 +10,8 @@ import RegisterPage from "./Pages/Profile/RegisterPage"
 import LoginPage from "./Pages/Profile/LoginPage";
 import ProfilePage from "./Pages/Profile/ProfilePage";
 import {AuthProvider} from "./api/AuthContext";
+
+import './index.css';
 
 function AppLayout() {
     return <>

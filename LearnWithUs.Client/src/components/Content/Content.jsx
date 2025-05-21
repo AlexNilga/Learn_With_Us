@@ -12,13 +12,16 @@ const Content = ({content, loading}) => {
 
     return (<>
             <div className="content-header">Матеріали</div>
-            <div className="content-card-container">
+            <div className="content-cards">
                 {content.map((file) =>
-                    <div key={file.id} className="content-card">
-                        <div className="content-name">{file.name}</div>
-                        <div className="content-description">{file.description}</div>
-                        <button className="download-file">download</button>
-                    </div>
+                    <article key={file.id} className="information content-card">
+                        {/*<i className="fa fa-file"></i>*/}
+                        <h2 className="name">{file.name}</h2>
+                        {/*<p className="info">{file.description}</p>*/}
+                        <button className="button">
+                            <span>download</span>
+                        </button>
+                    </article>
                 )}
             </div>
             <hr/>
