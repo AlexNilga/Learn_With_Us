@@ -1,13 +1,38 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, {createContext, useState, useEffect, useMemo} from "react";
+import {jwtDecode} from "jwt-decode";
 
 export const AuthContext = createContext({
-    isLoggedIn: false,
+    role: "Guest",
     login: () => {},
     logout: () => {}
 });
 
-export function AuthProvider({ children }) {
-    // initialize from localStorage
+const getToken = () => {
+    try {
+        const token = localStorage.getItem("token");
+        if (!token) return null;
+        const {exp} = jwtDecode(token);
+        return exp * 1000 > Date.now() ? token : null;
+    } catch {
+        return null;
+    }
+}
+
+const role = () => {
+    try{
+        const token = getToken()
+        if(!token) return "Guest";
+        const decoded = jwtDecode(token);
+        console.log(decoded);
+    }catch{
+        return "Guest";
+    }
+}
+
+export function AuthProvider({children}) {
+    const [token, setToken] = useState(getToken);
+    const role = Boolean(token);
+
     const [isLoggedIn, setIsLoggedIn] = useState(
         () => !!localStorage.getItem("token")
     );
@@ -16,25 +41,31 @@ export function AuthProvider({ children }) {
     useEffect(() => {
         const onStorage = (e) => {
             if (e.key === "token") {
-                setIsLoggedIn(!!e.newValue);
+                setToken(getToken());
             }
         };
         window.addEventListener("storage", onStorage);
         return () => window.removeEventListener("storage", onStorage);
     }, []);
 
-    function login(token) {
-        localStorage.setItem("token", token);
-        setIsLoggedIn(true);
+    const login = (newToken) => {
+        localStorage.setItem("token", newToken);
+        setToken(newToken);
     }
 
-    function logout () {
+    const logout = () => {
         localStorage.removeItem("token");
-        setIsLoggedIn(false);
+        setToken(null);
     }
+
+    const value = useMemo(
+        () => ({role, login, logout}),
+        [isLoggedIn]
+    );
+
 
     return (
-        <AuthContext.Provider value={{ isLoggedIn, login, logout }}>
+        <AuthContext.Provider value={value}>
             {children}
         </AuthContext.Provider>
     );

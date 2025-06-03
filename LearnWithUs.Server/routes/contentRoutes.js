@@ -16,8 +16,8 @@ const fileUploader = multer({ dest: tmpDir }); // temporary folder
 /**
  * @swagger
  * tags:
- *   name: Content
- *   description: Content management endpoints
+ *   name: content
+ *   description: content management endpoints
  */
 
 /**
@@ -25,7 +25,7 @@ const fileUploader = multer({ dest: tmpDir }); // temporary folder
  * /content:
  *   post:
  *     summary: Create a new content
- *     tags: [Content]
+ *     tags: [content]
  *     requestBody:
  *       required: true
  *       content:
@@ -39,7 +39,7 @@ const fileUploader = multer({ dest: tmpDir }); // temporary folder
  *             properties:
  *               description:
  *                 type: string
- *                 example: "Content description"
+ *                 example: "content description"
  *               categoryId:
  *                 type: integer
  *                 example: 1
@@ -50,7 +50,7 @@ const fileUploader = multer({ dest: tmpDir }); // temporary folder
  *       - bearerAuth: []
  *     responses:
  *       201:
- *         description: Content created successfully
+ *         description: content created successfully
  *       400:
  *         description: Validation error
  *       500:
@@ -67,7 +67,7 @@ router.post(
  * /content/{id}:
  *   get:
  *     summary: Get content by ID
- *     tags: [Content]
+ *     tags: [content]
  *     parameters:
  *       - name: id
  *         in: path
@@ -80,11 +80,11 @@ router.post(
  *       - bearerAuth: []
  *     responses:
  *       200:
- *         description: Content metadata retrieved successfully
+ *         description: content metadata retrieved successfully
  *       401:
  *         description: Unauthorized
  *       404:
- *         description: Content not found
+ *         description: content not found
  */
 router.get('/:id', authenticateToken, (req, res) => { contentController.getContent(req, res) });
 
@@ -93,7 +93,7 @@ router.get('/:id', authenticateToken, (req, res) => { contentController.getConte
  * /content/{id}/file:
  *   get:
  *     summary: Get content file by content ID
- *     tags: [Content]
+ *     tags: [content]
  *     parameters:
  *       - name: id
  *         in: path
@@ -106,11 +106,11 @@ router.get('/:id', authenticateToken, (req, res) => { contentController.getConte
  *       - bearerAuth: []
  *     responses:
  *       200:
- *         description: Content retrieved successfully
+ *         description: content retrieved successfully
  *       401:
  *         description: Unauthorized
  *       404:
- *         description: Content not found
+ *         description: content not found
  */
 router.get('/:id/file', authenticateToken, (req, res) => { contentController.getContentFile(req, res) });
 
@@ -119,7 +119,7 @@ router.get('/:id/file', authenticateToken, (req, res) => { contentController.get
  * /content:
  *   get:
  *     summary: Get all contents
- *     tags: [Content]
+ *     tags: [content]
  *     parameters:
  *       - name: categoryId
  *         in: query
@@ -148,7 +148,7 @@ router.get('/', authenticateToken, (req, res) => { contentController.listContent
  * /content/{id}:
  *   patch:
  *     summary: Update a content by ID
- *     tags: [Content]
+ *     tags: [content]
  *     parameters:
  *       - name: id
  *         in: path
@@ -174,13 +174,13 @@ router.get('/', authenticateToken, (req, res) => { contentController.listContent
  *       - bearerAuth: []
  *     responses:
  *       200:
- *         description: Content updated successfully
+ *         description: content updated successfully
  *       401:
  *        description: Unauthorized
  *       403:
  *        description: Forbidden
  *       404:
- *        description: Content not found
+ *        description: content not found
  *       400:
  *        description: Validation error
  * 
@@ -192,7 +192,7 @@ router.patch('/:id', authenticateToken, (req, res) => { contentController.update
  * /content/{id}:
  *   delete:
  *     summary: Delete content
- *     tags: [Content]
+ *     tags: [content]
  *     parameters:
  *       - name: id
  *         in: path
@@ -205,7 +205,7 @@ router.patch('/:id', authenticateToken, (req, res) => { contentController.update
  *       - bearerAuth: []
  *     responses:
  *       200:
- *         description: Content deleted successfully
+ *         description: content deleted successfully
  *       401:
  *        description: Unauthorized
  *       403:
@@ -218,7 +218,7 @@ router.delete('/:id', authenticateToken, (req, res) => { contentController.delet
  * /content/{contentId}/comment:
  *   post:
  *     summary: Create a new comment to a content
- *     tags: [Content]
+ *     tags: [content]
  *     parameters:
  *       - in: path
  *         name: contentId
@@ -240,7 +240,7 @@ router.delete('/:id', authenticateToken, (req, res) => { contentController.delet
  *       - bearerAuth: []
  *     responses:
  *       201:
- *         description: Content comment created successfully
+ *         description: content comment created successfully
  *       400:
  *         description: Validation error
  *       500:

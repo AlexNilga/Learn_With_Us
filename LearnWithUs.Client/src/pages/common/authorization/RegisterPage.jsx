@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import "./ProfilePage.css";
-import {registerUser} from "../../api/RegisterUser";
+import "../../user/profile/ProfilePage.css";
+import {registerUser} from "../../../api/RegisterUser";
 import {useNavigate} from "react-router-dom";
 
 export default function RegisterPage() {

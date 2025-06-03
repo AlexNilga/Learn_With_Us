@@ -1,5 +1,6 @@
 import React from 'react';
 import './Content.css';
+import {downloadFile} from "../../api/ContentAPI";
 
 const Content = ({content, loading}) => {
     if (loading) {
@@ -18,7 +19,7 @@ const Content = ({content, loading}) => {
                         {/*<i className="fa fa-file"></i>*/}
                         <h2 className="name">{file.name}</h2>
                         {/*<p className="info">{file.description}</p>*/}
-                        <button className="button">
+                        <button className="button" onClick={() => downloadFile(file.id)}>
                             <span>download</span>
                         </button>
                     </article>

@@ -8,7 +8,8 @@ const categoriesRouter = require('./routes/categoryRoutes');
 const contentsRouter = require('./routes/contentRoutes');
 
 const app = express();
-app.use(cors());
+// Enable CORS with exposed headers to make 'Content-Disposition' accessible to the client
+app.use(cors({exposedHeaders: ['Content-Disposition']}));
 app.use(express.json({ encoding: 'utf-8' }));
 app.use(express.urlencoded({ extended: true, encoding: 'utf-8' }));
 

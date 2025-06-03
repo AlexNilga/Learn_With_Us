@@ -7,7 +7,7 @@ const categoryController = require('../controllers/categoryController');
 /**
  * @swagger
  * tags:
- *   name: Categories
+ *   name: сategories
  *   description: Category management endpoints
  */
 
@@ -16,7 +16,7 @@ const categoryController = require('../controllers/categoryController');
  * /category:
  *   post:
  *     summary: Create a new category
- *     tags: [Categories]
+ *     tags: [сategories]
  *     requestBody:
  *       required: true
  *       content:
@@ -50,7 +50,7 @@ router.post('/', authenticateToken, (req, res) => { categoryController.createCat
  * /category/{id}:
  *   get:
  *     summary: Get a category by ID
- *     tags: [Categories]
+ *     tags: [сategories]
  *     parameters:
  *       - name: id
  *         in: path
@@ -73,7 +73,7 @@ router.get('/:id', authenticateToken, (req, res) => { categoryController.getCate
  * /category:
  *   get:
  *     summary: Get all categories
- *     tags: [Categories]
+ *     tags: [сategories]
  *     parameters:
  *       - name: parentId
  *         in: query
@@ -106,7 +106,7 @@ router.get('/', authenticateToken, (req, res) => { categoryController.listCatego
  * /category/{id}:
  *   patch:
  *     summary: Update a category by ID
- *     tags: [Categories]
+ *     tags: [сategories]
  *     parameters:
  *       - name: id
  *         in: path
@@ -149,7 +149,7 @@ router.patch('/:id', authenticateToken, (req, res) => { categoryController.updat
  * /category/{id}:
  *   delete:
  *     summary: Delete a category by ID
- *     tags: [Categories]
+ *     tags: [сategories]
  *     parameters:
  *       - name: id
  *         in: path

@@ -1,8 +1,8 @@
 import React, {useContext, useState} from 'react';
-import "./ProfilePage.css";
-import {loginUser} from "../../api/LoginUser";
+import "../../user/profile/ProfilePage.css";
+import {loginUser} from "../../../api/LoginUser";
 import {useNavigate} from "react-router-dom";
-import {AuthContext} from "../../api/AuthContext";
+import {AuthContext} from "../../../api/AuthContext";
 
 export default function LoginPage() {
     const { login } = useContext(AuthContext);

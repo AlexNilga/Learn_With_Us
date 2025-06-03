@@ -95,7 +95,7 @@ exports.getContent = async (req, res) => {
         });
 
         if (!content) {
-            return res.status(404).json({ error: 'Content was not found' });
+            return res.status(404).json({ error: 'content was not found' });
         }
 
         res.status(200).json(category);
@@ -126,11 +126,11 @@ exports.getContentFile = async (req, res) => {
         });
 
         if (!content) {
-            return res.status(404).json({ error: 'Content was not found' });
+            return res.status(404).json({ error: 'content was not found' });
         }
 
         if (!fileStorage.existsSync(content.path)) {
-            return res.status(404).json({ error: 'Content not found on disk' });
+            return res.status(404).json({ error: 'content not found on disk' });
         }
 
         const encodedName = encodeURIComponent(content.name);
@@ -208,7 +208,7 @@ exports.updateContent = async (req, res) => {
             });
 
         if (!content) {
-            return res.status(404).json({ error: 'Content was not found' });
+            return res.status(404).json({ error: 'content was not found' });
         }
 
         if (content.userId !== req.user.id && !req.user.isAdmin) {
@@ -247,7 +247,7 @@ exports.deleteContent = async (req, res) => {
         const content = await Content.findByPk(req.params.id);
 
         if (!content) {
-            return res.status(404).json({ error: 'Content was not found' });
+            return res.status(404).json({ error: 'content was not found' });
         }
 
         if (content.userId !== req.user.id && !req.user.isAdmin) {
@@ -280,7 +280,7 @@ exports.createContentComment = async (req, res) => {
         const content = await Content.findByPk(contentId);
 
         if (!content) {
-            return res.status(404).json({ error: 'Content was not found' });
+            return res.status(404).json({ error: 'content was not found' });
         }
 
         const comment = await ContentComment.create({

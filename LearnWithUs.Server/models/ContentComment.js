@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       text: {
         type: DataTypes.TEXT,
         validate: {
-          notEmpty: { msg: "Content comment text cannot be empty" },
+          notEmpty: { msg: "content comment text cannot be empty" },
           len: {
             args: [10, 4000],
             msg: "Comment must be from 10 to 4000 characters"

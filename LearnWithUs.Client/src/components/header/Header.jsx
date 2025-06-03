@@ -17,11 +17,11 @@ function Header() {
     return (
         <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary" bg="dark" data-bs-theme="dark">
             <Container>
-                <Navbar.Brand href="/">Learn With Us</Navbar.Brand>
+                <Navbar.Brand as={Link}href="/">Learn With Us</Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="me-auto">
-                        <Nav.Link as={Link} to="categories">Subjects</Nav.Link>
+                        <Nav.Link as={Link} to="categories">Курси</Nav.Link>
                         <NavDropdown title="Розробка" id="collapsible-nav-dropdown">
                             <NavDropdown.Item href="#action/3.1">далі буде</NavDropdown.Item>
                             <NavDropdown.Item href="#action/3.2">

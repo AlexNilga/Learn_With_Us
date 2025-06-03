@@ -11,7 +11,7 @@ import {
     MDBTypography,
     MDBIcon
 } from 'mdb-react-ui-kit';
-import {AuthContext} from '../../api/AuthContext';
+import {AuthContext} from '../../../api/AuthContext';
 
 export default function PersonalProfile() {
     const navigate = useNavigate();
