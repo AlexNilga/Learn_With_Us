@@ -1,8 +1,9 @@
-import {adminRouter, commonRouter, userRouter} from "./roleRouters";
+import React, {useContext} from "react";
 import {createBrowserRouter, Outlet, RouterProvider} from "react-router-dom";
-import WelcomePage from "../pages/common/welcome/WelcomePage";
-import React from "react";
+
+import {adminRouter, commonRouter, userRouter} from "./roleRouters";
 import Header from "../components/header/Header";
+import {AuthContext} from "../api/AuthContext";
 
 function AppLayout() {
     return <>
@@ -11,24 +12,27 @@ function AppLayout() {
     </>
 }
 
-const getRouterByRole = (role = "guest") => {
+const getRouterByRole = (role) => {
     switch (role) {
-        case "guest":
+        case "Guest":
             return commonRouter
-        case "user":
+        case "User":
             return [...commonRouter, ...userRouter]
-        case "admin":
+        case "Admin":
             return [...commonRouter, ...adminRouter]
+        default:
+            return commonRouter
     }
 }
 
 const MyAppRouter = () => {
+    const {role} = useContext(AuthContext);
 
     const router = createBrowserRouter([
         {
             path: "/",
             element: (<AppLayout/>),
-            children: getRouterByRole("user")
+            children: getRouterByRole(role)
         }
 
     ])
