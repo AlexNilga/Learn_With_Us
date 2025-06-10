@@ -1,12 +1,12 @@
-import React, {createContext, useState, useEffect, useMemo} from "react";
+import React, {createContext, useState, useEffect, useMemo, useCallback} from "react";
 import {jwtDecode} from "jwt-decode";
 
 export const AuthContext = createContext({
-    role: String,
     isLoggedIn: false,
+    role: String,
     login: () => {},
     logout: () => {},
-    // getId: () => {}
+    getId: () => {}
 });
 
 
@@ -22,17 +22,17 @@ const getToken = () => {
     }
 }
 
-// const getId = () => {
-//     try {
-//         const token = getToken();
-//         if (!token) return null;
-//         const {id} = jwtDecode(token);
-//         console.log(id);
-//         return id
-//     } catch {
-//         return null;
-//     }
-// }
+const getId = () => {
+    try {
+        const token = getToken();
+        if (!token) return null;
+        const {id} = jwtDecode(token);
+        console.log(id);
+        return id
+    } catch {
+        return null;
+    }
+}
 
 const getRole = () => {
     try{
@@ -45,39 +45,40 @@ const getRole = () => {
 }
 
 export function AuthProvider({children}) {
-    const [isLoggedIn, setIsLoggedIn] = useState(!!getToken());
-    console.log("Logged in: ", isLoggedIn)
-    const [role, setRole] = useState(getRole);
+    const [isLoggedIn, setIsLoggedIn] = useState(() => !!getToken());
+    const [role, setRole] = useState(() => getRole());
 
-    useEffect(() => {
-        function handleStorageChange() {
-            setIsLoggedIn(!!getToken());
-            setRole(getRole);
-        }
-
-        window.addEventListener('storage', handleStorageChange);
-        return () => window.removeEventListener('storage', handleStorageChange);
+    const refreshAuthState = useCallback(() => {
+        setIsLoggedIn(!!getToken());
+        setRole(getRole());
     }, []);
 
-    const login = (newToken) => {
+    useEffect(() => {
+        window.addEventListener("storage", refreshAuthState);
+        return () => window.removeEventListener("storage", refreshAuthState);
+    }, [refreshAuthState]);
+
+
+    const login = useCallback((newToken) => {
         localStorage.setItem("token", newToken);
-        setRole(getRole)
-        setIsLoggedIn(true)
-    }
+        refreshAuthState();
+    }, [refreshAuthState]);
 
-    const logout = () => {
+
+    const logout = useCallback(() => {
         localStorage.removeItem("token");
-        setRole(getRole)
-        setIsLoggedIn(false);
-    }
+        refreshAuthState();
+    }, [refreshAuthState]);
 
-    const value = useMemo(
-        () => ({role, isLoggedIn, login, logout}),
-        [role, isLoggedIn]
+
+    const contextValue = useMemo(
+        () => ({ isLoggedIn, role, login, logout, getId }),
+        [isLoggedIn, role, login, logout, getId]
     );
 
+
     return (
-        <AuthContext.Provider value={value}>
+        <AuthContext.Provider value={contextValue}>
             {children}
         </AuthContext.Provider>
     );

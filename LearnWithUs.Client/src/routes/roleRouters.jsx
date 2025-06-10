@@ -26,7 +26,7 @@ export const commonRouter = [
 
 export const userRouter = [
     {
-        path: "/categories",
+        path: "/categories/:parentId?",
         element: (<CategoriesPage/>),
     },
 ]

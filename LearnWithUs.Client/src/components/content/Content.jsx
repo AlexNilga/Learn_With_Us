@@ -1,8 +1,11 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import './Content.css';
 import {downloadFile} from "../../api/ContentAPI";
+import {AuthContext} from "../../api/AuthContext";
 
 const Content = ({content, loading}) => {
+    const {role} = useContext(AuthContext);
+
     if (loading) {
         return (
             <div className="loading">
@@ -12,19 +15,40 @@ const Content = ({content, loading}) => {
     }
 
     return (<>
-            <div className="content-header">Матеріали</div>
-            <div className="content-cards">
-                {content.map((file) =>
-                    <article key={file.id} className="information content-card">
-                        {/*<i className="fa fa-file"></i>*/}
-                        <h2 className="name">{file.name}</h2>
-                        {/*<p className="info">{file.description}</p>*/}
-                        <button className="button" onClick={() => downloadFile(file.id)}>
-                            <span>download</span>
-                        </button>
-                    </article>
-                )}
-            </div>
+            <details className="content-block" open>
+                <summary className="content-header">Матеріали</summary>
+                <div className="content-cards">
+                    {content.map(file => (
+                        <article key={file.id} className="content-card">
+                            <div className="file-info">
+                                <i className="fa fa-file"/>
+                                <div>
+                                    <h2 className="name">{file.name}</h2>
+                                    <p className="info">{file.description}</p>
+                                </div>
+                            </div>
+                            <div className="actions">
+                                <button
+                                    className="download-button"
+                                    onClick={() => downloadFile(file.id)}
+                                >
+                                    Download
+                                </button>
+                                {role === 'Admin' && (
+                                    <div className="icons-container">
+                                        <button className="icon-button">
+                                            <i className="fas fa-pencil-alt fa-sm"/>
+                                        </button>
+                                        <button className="icon-button">
+                                            <i className="fas fa-trash-alt fa-sm"/>
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
+                        </article>
+                    ))}
+                </div>
+            </details>
             <hr/>
         </>
     );

@@ -1,112 +1,207 @@
 .content-header {
-    text-align: center;
-    margin: 20px;
-    /*margin-top: 1.5rem;*/
-    /*margin-bottom: 1.5rem;*/
-    font-size: 3rem;
-    line-height: 1.2;
-    font-weight: 500;
+    margin-bottom: 16px;
+    font-size: 1.8rem;
+    color: #333;
 }
 
 .content-cards {
-    display: grid;
-    margin: 20px;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
-}
-
-hr {
-    margin: 30px -20px 20px;
-    border: 0;
-    border-top: 5px solid rgb(43, 48, 53);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 }
 
 .content-card {
-    /*border-radius: 16px;*/
-    border: 2px solid #000000;
-    box-shadow: 0 30px 30px -25px rgba(65, 51, 183, 0.25);
-    max-width: 300px;
-    max-height: 250px;
     display: flex;
-    flex-direction: column;
-    transition: transform 0.2s ease;
-}
-
-.content-card:hover {
-    transform: translateY(-5px);
-}
-
-.information {
-    background-color: #fff;
-    padding: 1.5rem;
-    border-radius: 14px;
-    flex: 1; /* fill remaining height of .category-card */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between; /* tag+title+info at top, button at bottom */
-}
-
-.information .button {
-    justify-content: flex-start; /* icon will sit directly after “Learn more” */
-    gap: 0.5rem;
-}
-
-
-.information .tag {
-    display: inline-block;
-    background-color: #f1eeff;
-    color: #6558d3;
-    font-weight: 600;
-    font-size: 0.875rem;
-    padding: 0.5em 0.75em;
-    line-height: 1;
-    border-radius: 6px;
-}
-
-.information .tag + * {
-    margin-top: 1rem;
-}
-
-.information .name {
-    font-size: 1.5rem;
-    color: #141b22;
-    line-height: 1.25;
-    overflow: hidden;
-}
-
-.information .name + * {
-    margin-top: 1rem;
-}
-
-.information .info {
-    color: #a0a0a0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    /*display: -webkit-box;*/
-    /*-webkit-line-clamp: 3;*/
-    /*-webkit-box-orient: vertical;*/
-}
-
-.information .info + * {
-    /*margin-top: 1.25rem;*/
-}
-
-.information .button {
-    font: inherit;
-    line-height: 1;
-    background-color: #fff;
-    border: 2px solid #6558d3;
-    color: #6558d3;
-    padding: 0.5em 1em;
-    border-radius: 6px;
-    font-weight: 500;
-    display: inline-flex;
     align-items: center;
     justify-content: space-between;
-    gap: 0.5rem;
+    padding: 16px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-.information .button:hover, .information .button:focus {
-    background-color: #6558d3;
-    color: #fff;
+.file-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
+
+.file-info .fa-file {
+    font-size: 24px;
+    color: #007bff;
+}
+
+.name {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.info {
+    margin: 4px 0 0;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.download-button {
+    background-color: #007bff;
+    border: none;
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.download-button:hover {
+    background-color: #0056b3;
+}
+
+.icons-container .icon-button {
+    background: transparent;
+    border: none;
+    color: #6c757d;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.icons-container .icon-button:hover {
+    color: #343a40;
+}
+
+.loading {
+    padding: 24px;
+    text-align: center;
+    color: #666;
+}
+
+.content-block summary {
+    cursor: pointer ;
+    list-style: none;
+    /* reuse your existing .content-header rules if needed */
+}
+
+.content-block summary::-webkit-details-marker {
+    display: none;
+}
+
+
+/*.content-header {*/
+/*    text-align: center;*/
+/*    margin: 20px;*/
+/*    !*margin-top: 1.5rem;*!*/
+/*    !*margin-bottom: 1.5rem;*!*/
+/*    font-size: 3rem;*/
+/*    line-height: 1.2;*/
+/*    font-weight: 500;*/
+/*}*/
+
+/*.content-cards {*/
+/*    display: grid;*/
+/*    margin: 20px;*/
+/*    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));*/
+/*    gap: 20px;*/
+/*}*/
+
+/*hr {*/
+/*    margin: 30px -20px 20px;*/
+/*    border: 0;*/
+/*    border-top: 5px solid rgb(43, 48, 53);*/
+/*}*/
+
+/*.content-card {*/
+/*    !*border-radius: 16px;*!*/
+/*    border: 2px solid #000000;*/
+/*    box-shadow: 0 30px 30px -25px rgba(65, 51, 183, 0.25);*/
+/*    max-width: 300px;*/
+/*    max-height: 250px;*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    transition: transform 0.2s ease;*/
+/*}*/
+
+/*.content-card:hover {*/
+/*    transform: translateY(-5px);*/
+/*}*/
+
+/*.information {*/
+/*    background-color: #fff;*/
+/*    padding: 1.5rem;*/
+/*    border-radius: 14px;*/
+/*    flex: 1; !* fill remaining height of .category-card *!*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    justify-content: space-between; !* tag+title+info at top, button at bottom *!*/
+/*}*/
+
+/*.information .button {*/
+/*    justify-content: flex-start; !* icon will sit directly after “Learn more” *!*/
+/*    gap: 0.5rem;*/
+/*}*/
+
+
+/*.information .tag {*/
+/*    display: inline-block;*/
+/*    background-color: #f1eeff;*/
+/*    color: #6558d3;*/
+/*    font-weight: 600;*/
+/*    font-size: 0.875rem;*/
+/*    padding: 0.5em 0.75em;*/
+/*    line-height: 1;*/
+/*    border-radius: 6px;*/
+/*}*/
+
+/*.information .tag + * {*/
+/*    margin-top: 1rem;*/
+/*}*/
+
+/*.information .name {*/
+/*    font-size: 1.5rem;*/
+/*    color: #141b22;*/
+/*    line-height: 1.25;*/
+/*    overflow: hidden;*/
+/*}*/
+
+/*.information .name + * {*/
+/*    margin-top: 1rem;*/
+/*}*/
+
+/*.information .info {*/
+/*    color: #a0a0a0;*/
+/*    overflow: hidden;*/
+/*    text-overflow: ellipsis;*/
+/*    !*display: -webkit-box;*!*/
+/*    !*-webkit-line-clamp: 3;*!*/
+/*    !*-webkit-box-orient: vertical;*!*/
+/*}*/
+
+/*.information .info + * {*/
+/*    !*margin-top: 1.25rem;*!*/
+/*}*/
+
+/*.information .button {*/
+/*    font: inherit;*/
+/*    line-height: 1;*/
+/*    background-color: #fff;*/
+/*    border: 2px solid #6558d3;*/
+/*    color: #6558d3;*/
+/*    padding: 0.5em 1em;*/
+/*    border-radius: 6px;*/
+/*    font-weight: 500;*/
+/*    display: inline-flex;*/
+/*    align-items: center;*/
+/*    justify-content: space-between;*/
+/*    gap: 0.5rem;*/
+/*}*/
+
+/*.information .button:hover, .information .button:focus {*/
+/*    background-color: #6558d3;*/
+/*    color: #fff;*/
+/*}*/

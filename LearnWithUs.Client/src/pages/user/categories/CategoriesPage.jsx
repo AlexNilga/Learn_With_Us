@@ -1,15 +1,21 @@
 import React, {useEffect, useState} from "react"
 
 import "./CategoriesPage.css"
-import {getCategories} from "../../../api/CategoryAPI";
+import {getCategories, getCategoryById} from "../../../api/CategoryAPI";
 import {getContent} from "../../../api/ContentAPI";
 import Content from "../../../components/content/Content";
 import Categories from "../../../components/сategories/Categories";
+import {useNavigate, useParams} from "react-router-dom";
 
 function CategoriesPage() {
+    const navigate = useNavigate();
+
+    const { parentId = "0" } = useParams();
+    const pid = Number(parentId);
+
     const [categories, setCategories] = useState([]);
     const [content, setContent] = useState([]);
-    const [parentId, setParentId] = useState(0)
+    const [currentCategoryName, setCurrentCategoryName] = useState("Доступні курси");
 
     const [loading, setLoading] = useState(true);
     const [errorCategories, setErrorCategories] = useState("");
@@ -43,17 +49,30 @@ function CategoriesPage() {
     }
 
     useEffect(() => {
-        fetchCategories(parentId)
-        fetchContent(parentId)
+        async function fetchCategoryName() {
+            if (pid === 0) {
+                setCurrentCategoryName("Доступні курси");
+            } else {
+                const result = await getCategoryById(pid);
+                if (result.success) {
+                    setCurrentCategoryName(result.data.name);
+                } else {
+                    setCurrentCategoryName("Доступні курси");
+                }
+            }
+        }
+        fetchCategoryName();
+    }, [pid]);
 
+    useEffect(() => {
+        fetchCategories(pid)
+        fetchContent(pid)
+    }, [pid]);
 
-    }, [parentId]);
-
-    const handleLearnMore = async categoryId => {
-        const category = categories.find(c => c.id === categoryId);
-        console.log(category);
-        setParentId(categoryId);
+    const handleLearnMore = categoryId => {
+        navigate(`/categories/${categoryId}`);
     };
+
 
     if (loading) {
         return (
@@ -74,6 +93,7 @@ function CategoriesPage() {
 
     return (
         <>
+            <h2 className="current-category-title">{currentCategoryName}</h2>
             <div className="main-content">
                 {
                     categories.length > 0 ? (
@@ -83,7 +103,7 @@ function CategoriesPage() {
                             loading={loading}
                         />
                     ) : (
-                        <div className="no-categories">No categories available.</div>
+                        <div className="no-categories"></div>
                     )}
                 {
                     content.length > 0 ? (
@@ -92,7 +112,7 @@ function CategoriesPage() {
                                 loading={loading}/>
                         )
                         : (
-                            <div className="no-content">No content available.</div>
+                            <div className="no-content"></div>
                         )
                 }
             </div>
