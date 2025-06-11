@@ -7,7 +7,7 @@
 .content-cards {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 1rem;
 }
 
 .content-card {
@@ -18,6 +18,7 @@
     background: #fff;
     border-radius: 8px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    cursor: default;
 }
 
 .file-info {
@@ -27,6 +28,8 @@
 }
 
 .file-info .fa-file {
+    align-self: flex-start;
+    margin-top: 0.5rem;
     font-size: 24px;
     color: #007bff;
 }
@@ -38,9 +41,9 @@
 }
 
 .info {
-    margin: 4px 0 0;
     color: #666;
     font-size: 0.9rem;
+    margin: 4px 16px 0 0;
 }
 
 .actions {
@@ -89,3 +92,76 @@
     background-color: #e4eaef;
     border-radius: 5px;
 }
+
+
+.upload-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    background: #f9f9f9;
+}
+
+.upload-icon {
+    font-size: 1.25rem;
+    color: #007bff;
+}
+
+.upload-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+}
+
+.upload-description {
+    flex: 1 1 auto;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+.upload-file {
+    font-size: 0.9rem;
+}
+
+.upload-button {
+    background-color: #007bff;
+    border: none;
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.upload-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.upload-button:hover:not(:disabled) {
+    background-color: #0056b3;
+}
+
+/* Comments button styling */
+.comments-button {
+    background-color: #17a2b8;
+    border: none;
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.comments-button:hover {
+    background-color: #117a8b;
+}
+

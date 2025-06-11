@@ -103,3 +103,37 @@ export async function deleteFile(fileId) {
     }
 }
 
+export async function uploadFile(categoryId, description, file) {
+    try {
+        const token = localStorage.getItem("token");
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("categoryId", categoryId);
+        formData.append("description", description);
+
+        const response = await axios.post(
+            `${process.env.REACT_APP_API_BASE_URL}/content`,
+            formData,
+            {
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    'Content-Type': 'multipart/form-data'
+                },
+            }
+        );
+
+        return {
+            status: response.status,
+            success: true,
+            message: "File uploaded successfully",
+            data: response.data,
+        };
+    } catch (error) {
+        return {
+            status: error.response?.status,
+            success: false,
+            message: error.response?.data?.error || "Failed to upload file",
+            data: null,
+        };
+    }
+}

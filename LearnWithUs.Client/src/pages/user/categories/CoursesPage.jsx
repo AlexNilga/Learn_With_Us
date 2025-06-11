@@ -1,16 +1,16 @@
 import React, {useEffect, useState} from "react"
 
-import "./CategoriesPage.css"
+import "./CoursesPage.css"
 import {getCategories, getCategoryById} from "../../../api/CategoryAPI";
 import {getContent} from "../../../api/ContentAPI";
 import Content from "../../../components/content/Content";
 import Categories from "../../../components/сategories/Categories";
 import {useNavigate, useParams} from "react-router-dom";
 
-function CategoriesPage() {
+function CoursesPage() {
     const navigate = useNavigate();
 
-    const { parentId = "0" } = useParams();
+    const {parentId = "0"} = useParams();
     const pid = Number(parentId);
 
     const [categories, setCategories] = useState([]);
@@ -61,6 +61,7 @@ function CategoriesPage() {
                 }
             }
         }
+
         fetchCategoryName();
     }, [pid]);
 
@@ -109,6 +110,7 @@ function CategoriesPage() {
                     content.length > 0 ? (
                             <Content
                                 content={content}
+                                pid={pid}
                                 loading={loading}/>
                         )
                         : (
@@ -120,4 +122,4 @@ function CategoriesPage() {
     );
 }
 
-export default CategoriesPage;
+export default CoursesPage;
