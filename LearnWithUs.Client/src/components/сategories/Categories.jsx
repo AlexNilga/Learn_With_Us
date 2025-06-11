@@ -38,7 +38,7 @@ const Categories = ({categories, onLearnMore, loading}) => {
                                     className="learn-button"
                                     onClick={() => onLearnMore(category.id)}
                                 >
-                                    Learn more
+                                    Відкрити
                                 </button>
                                 {role === 'Admin' && (
                                     <div className="icons-container">

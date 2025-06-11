@@ -1,5 +1,5 @@
 import  WelcomePage from "../pages/common/welcome/WelcomePage";
-import CategoriesPage from "../pages/user/categories/CategoriesPage";
+import CoursesPage from "../pages/user/categories/CoursesPage";
 import LoginPage from "../pages/common/authorization/LoginPage";
 import RegisterPage from "../pages/common/authorization/RegisterPage";
 import ProfilePage from "../pages/user/profile/ProfilePage";
@@ -27,13 +27,13 @@ export const commonRouter = [
 export const userRouter = [
     {
         path: "/categories/:parentId?",
-        element: (<CategoriesPage/>),
+        element: (<CoursesPage/>),
     },
 ]
 
 export const adminRouter = [
     // {
     //     path: "/categories",
-    //     element: (<CategoriesPage/>),
+    //     element: (<CoursesPage/>),
     // },
 ]
