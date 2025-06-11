@@ -1,10 +1,26 @@
-import React, {useContext} from 'react';
-import './Content.css';
-import {downloadFile} from "../../api/ContentAPI";
+import React, {useContext, useEffect, useState} from 'react';
+import {deleteFile, downloadFile} from "../../api/ContentAPI";
 import {AuthContext} from "../../api/AuthContext";
+
+import './Content.css';
 
 const Content = ({content, loading}) => {
     const {role} = useContext(AuthContext);
+    const [files, setFiles] = useState(content);
+
+    useEffect(() => {
+        setFiles(content);
+    }, [content]);
+
+    const handleDelete = async (fileId) => {
+        const result = await deleteFile(fileId);
+        if (result.success) {
+            // filter out the deleted file
+            setFiles((prev) => prev.filter((f) => f.id !== fileId));
+        } else {
+            alert(result.message || 'Failed to delete file');
+        }
+    };
 
     if (loading) {
         return (
@@ -18,7 +34,7 @@ const Content = ({content, loading}) => {
             <details className="content-block" open>
                 <summary className="content-header">Матеріали</summary>
                 <div className="content-cards">
-                    {content.map(file => (
+                    {files.map(file => (
                         <article key={file.id} className="content-card">
                             <div className="file-info">
                                 <i className="fa fa-file"/>
@@ -39,7 +55,10 @@ const Content = ({content, loading}) => {
                                         <button className="icon-button">
                                             <i className="fas fa-pencil-alt fa-sm"/>
                                         </button>
-                                        <button className="icon-button">
+                                        <button
+                                            className="icon-button"
+                                            onClick={() => handleDelete(file.id)}
+                                        >
                                             <i className="fas fa-trash-alt fa-sm"/>
                                         </button>
                                     </div>

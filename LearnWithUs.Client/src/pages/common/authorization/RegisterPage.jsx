@@ -1,9 +1,12 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import "../../user/profile/ProfilePage.css";
-import {registerUser} from "../../../api/RegisterUser";
+import {registerUserAPI} from "../../../api/RegisterUserAPI";
 import {useNavigate} from "react-router-dom";
+import {loginUserAPI} from "../../../api/LoginUserAPI";
+import {AuthContext} from "../../../api/AuthContext";
 
 export default function RegisterPage() {
+    const { loginContext } = useContext(AuthContext);
     const [formData, setFormData] = useState({
         username: '',
         password: '',
@@ -29,10 +32,13 @@ export default function RegisterPage() {
         setErrorMsg("");
         setLoading(true);
 
-        const response = await registerUser(formData);
-        console.log("Response message:", response);
+        const response = await registerUserAPI(formData);
 
         if (response.success) {
+            const loginResponse = await loginUserAPI(formData)
+            if(loginResponse.success){
+                loginContext(loginResponse.token);
+            }
             navigate("/");
         }else{
             setErrorMsg(response.message);

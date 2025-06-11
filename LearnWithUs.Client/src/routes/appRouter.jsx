@@ -19,7 +19,7 @@ const getRouterByRole = (role) => {
         case "User":
             return [...commonRouter, ...userRouter]
         case "Admin":
-            return [...commonRouter, ...adminRouter]
+            return [...commonRouter, ...userRouter, ...adminRouter]
         default:
             return commonRouter
     }

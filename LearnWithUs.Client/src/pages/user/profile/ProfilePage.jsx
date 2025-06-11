@@ -18,7 +18,7 @@ import {getUserData} from "../../../api/UserAPI";
 
 export default function PersonalProfile() {
     const navigate = useNavigate();
-    const {isLoggedIn, logout, getId} = useContext(AuthContext);
+    const {isLoggedIn, logoutContext, getId} = useContext(AuthContext);
     const userId = getId();
     const [userData, setUserData] = useState(null);
 
@@ -46,8 +46,8 @@ export default function PersonalProfile() {
 
 
     const handleLogout = () => {
-        logout();
-        navigate('/login');
+        navigate('/');
+        logoutContext();
     };
 
     function getIcon() {
@@ -79,7 +79,6 @@ export default function PersonalProfile() {
                                         alt="Avatar" className="my-2" style={{width: '100px'}} fluid/>
                                     <MDBTypography tag="h5">Роль</MDBTypography>
                                     <MDBCardText>{userData.role}</MDBCardText>
-                                    <MDBIcon far icon="edit mb-5"/>
                                 </MDBCol>
                                 <MDBCol md="8">
                                     <MDBCardBody className="p-4">

@@ -2,11 +2,11 @@ import React, {useContext, useState} from 'react';
 import "../../user/profile/ProfilePage.css";
 import {useNavigate} from "react-router-dom";
 
-import {loginUser} from "../../../api/LoginUser";
+import {loginUserAPI} from "../../../api/LoginUserAPI";
 import {AuthContext} from "../../../api/AuthContext";
 
 export default function LoginPage() {
-    const { login } = useContext(AuthContext);
+    const { loginContext } = useContext(AuthContext);
     const [formData, setFormData] = useState({
         username: '',
         password: '',
@@ -28,11 +28,11 @@ export default function LoginPage() {
         setErrorMsg("");
         setLoading(true);
 
-        const response = await loginUser(formData);
+        const response = await loginUserAPI(formData);
         console.log("Response message:", response);
 
         if (response.success) {
-            login(response.token);
+            loginContext(response.token);
             navigate("/");
         }else{
             setErrorMsg(response.message);

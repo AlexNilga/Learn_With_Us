@@ -4,8 +4,8 @@ import {jwtDecode} from "jwt-decode";
 export const AuthContext = createContext({
     isLoggedIn: false,
     role: String,
-    login: () => {},
-    logout: () => {},
+    loginContext: () => {},
+    logoutContext: () => {},
     getId: () => {}
 });
 
@@ -59,21 +59,21 @@ export function AuthProvider({children}) {
     }, [refreshAuthState]);
 
 
-    const login = useCallback((newToken) => {
+    const loginContext = useCallback((newToken) => {
         localStorage.setItem("token", newToken);
         refreshAuthState();
     }, [refreshAuthState]);
 
 
-    const logout = useCallback(() => {
+    const logoutContext = useCallback(() => {
         localStorage.removeItem("token");
         refreshAuthState();
     }, [refreshAuthState]);
 
 
     const contextValue = useMemo(
-        () => ({ isLoggedIn, role, login, logout, getId }),
-        [isLoggedIn, role, login, logout, getId]
+        () => ({ isLoggedIn, role, loginContext: loginContext, logoutContext: logoutContext, getId }),
+        [isLoggedIn, role, loginContext, logoutContext, getId]
     );
 
 

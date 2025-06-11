@@ -80,7 +80,7 @@ export async function deleteFile(fileId) {
     try {
         const token = localStorage.getItem("token");
         const response = await axios.delete(
-            `${process.env.REACT_APP_API_BASE_URL}/${fileId}/file`,
+            `${process.env.REACT_APP_API_BASE_URL}/content/${fileId}`,
             {
                 headers: {
                     'Authorization': `Bearer ${token}`

@@ -32,8 +32,8 @@ export const userRouter = [
 ]
 
 export const adminRouter = [
-    {
-        path: "/categories",
-        element: (<CategoriesPage/>),
-    },
+    // {
+    //     path: "/categories",
+    //     element: (<CategoriesPage/>),
+    // },
 ]
