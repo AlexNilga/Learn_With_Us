@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import './Categories.css';
 import {AuthContext} from "../../api/AuthContext";
 
@@ -18,6 +18,32 @@ const Categories = ({categories, onLearnMore, loading}) => {
         return <div className="no-categories">No categories available.</div>;
     }
 
+    //an expandable text component
+    function ExpandableCategoryDescription({ text }) {
+        const [expandedDescription, setExpandedDescription] = useState(false);
+
+        // split on punctuation followed by space
+        const sentences = text.split(/(?<=[.?!])\s+/);
+        const first = sentences[0] || "";
+
+        return (
+            <p
+                className="info"
+                style={{ cursor: sentences.length > 1 ? 'pointer' : 'default' }}
+                onClick={() => {
+                    if (sentences.length > 1) setExpandedDescription(e => !e);
+                }}
+            >
+                {expandedDescription ? text : first + (sentences.length > 1 ? '...' : '')}
+                {sentences.length > 1 && (
+                    <span className="toggle">
+          {expandedDescription ? ' Read less' : ' Read more'}
+        </span>
+                )}
+            </p>
+        );
+    }
+
     return (
         <>
             <hr/>
@@ -30,7 +56,7 @@ const Categories = ({categories, onLearnMore, loading}) => {
                                 <i className="fas fa-folder-open"></i>
                                 <div>
                                     <h2 className="name">{category.name}</h2>
-                                    <p className="info">{category.description}</p>
+                                    <ExpandableCategoryDescription text={category.description} />
                                 </div>
                             </div>
                             <div className="actions">

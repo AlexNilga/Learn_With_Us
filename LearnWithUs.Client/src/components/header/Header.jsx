@@ -10,6 +10,7 @@ import {AuthContext} from "../../api/AuthContext";
 
 function Header() {
     const {isLoggedIn} = useContext(AuthContext);
+
     return (
         <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary" bg="dark" data-bs-theme="dark">
             <Container>
@@ -33,12 +34,12 @@ function Header() {
                     <Nav>
                         {isLoggedIn ? (
                             <>
-                                <Nav.Link as={Link} to="/profile">Profile</Nav.Link>
+                                <Nav.Link as={Link} to="/profile">Профіль</Nav.Link>
                             </>
                         ) : (
                             <>
-                                <Nav.Link as={Link} to="/login">Sign in</Nav.Link>
-                                <Nav.Link as={Link} to="/register">Sign up</Nav.Link>
+                                <Nav.Link as={Link} to="/login">Увійти</Nav.Link>
+                                <Nav.Link as={Link} to="/register">Зареєструватися</Nav.Link>
                             </>
                         )}
                     </Nav>

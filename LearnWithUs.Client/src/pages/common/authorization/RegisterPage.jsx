@@ -49,7 +49,7 @@ export default function RegisterPage() {
 
     return (
         <form className="login-form" onSubmit={handleSubmit}>
-            <h2>Register</h2>
+            <h2>Зареєструватися</h2>
             <div className="input-group">
                 <input
                     type="text"
@@ -58,7 +58,7 @@ export default function RegisterPage() {
                     onChange={handleInputChange}
                     required
                 />
-                <label>First Name</label>
+                <label>Ім'я</label>
             </div>
             <div className="input-group">
                 <input
@@ -68,7 +68,7 @@ export default function RegisterPage() {
                     onChange={handleInputChange}
                     required
                 />
-                <label>Last Name</label>
+                <label>Фамілія</label>
             </div>
             <div className="input-group">
                 <input
@@ -78,7 +78,7 @@ export default function RegisterPage() {
                     onChange={handleInputChange}
                     required
                 />
-                <label>Username(email address)</label>
+                <label>Username(email адреса)</label>
             </div>
             <div className="input-group">
                 <input
@@ -88,7 +88,7 @@ export default function RegisterPage() {
                     onChange={handleInputChange}
                     required
                 />
-                <label>Password</label>
+                <label>Пароль</label>
             </div>
             <button type="submit" disabled={loading}>
                 {loading ? "Registering…" : "Sign Up"}

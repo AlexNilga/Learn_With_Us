@@ -42,7 +42,7 @@ export default function LoginPage() {
 
     return (
             <form className="login-form" onSubmit={handleSubmit}>
-                <h2>Login</h2>
+                <h2>Увійти</h2>
                 <div className="input-group">
                     <input
                         type="username"
@@ -51,7 +51,7 @@ export default function LoginPage() {
                         onChange={handleInputChange}
                         required
                     />
-                    <label>Username(email address)</label>
+                    <label>Username(email адреса)</label>
                 </div>
                 <div className="input-group">
                     <input
@@ -61,7 +61,7 @@ export default function LoginPage() {
                         onChange={handleInputChange}
                         required
                     />
-                    <label>Password</label>
+                    <label>Пароль</label>
                 </div>
                 <button type="submit" disabled={loading}>
                     {loading ? "Registering…" : "Sign In"}

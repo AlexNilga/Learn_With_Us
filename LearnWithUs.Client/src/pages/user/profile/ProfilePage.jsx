@@ -9,7 +9,7 @@ import {
     MDBCardBody,
     MDBCardImage,
     MDBTypography,
-    MDBIcon, MDBBtn
+    MDBBtn
 } from 'mdb-react-ui-kit';
 import {AuthContext} from '../../../api/AuthContext';
 import adminAvatar from '../../../icons/admin-picture.png';
@@ -18,7 +18,7 @@ import {getUserData} from "../../../api/UserAPI";
 
 export default function PersonalProfile() {
     const navigate = useNavigate();
-    const {isLoggedIn, logoutContext, getId} = useContext(AuthContext);
+    const {logoutContext, getId} = useContext(AuthContext);
     const userId = getId();
     const [userData, setUserData] = useState(null);
 
@@ -46,8 +46,8 @@ export default function PersonalProfile() {
 
 
     const handleLogout = () => {
-        navigate('/');
         logoutContext();
+        navigate('/');
     };
 
     function getIcon() {
@@ -103,7 +103,7 @@ export default function PersonalProfile() {
                                         </MDBRow>
                                         <div className="d-flex justify-content-end mt-3">
                                             <MDBBtn color="dark" onClick={handleLogout}>
-                                                LogOut
+                                                Вийти
                                             </MDBBtn>
                                         </div>
 

@@ -61,9 +61,10 @@ const Content = ({content, pid, loading}) => {
             </div>
         );
     }
-    // NEW: an expandable text component
-    function ExpandableDescription({ text }) {
-        const [expanded, setExpanded] = useState(false);
+
+    //an expandable text component
+    function ExpandableContentDescription({text}) {
+        const [expandedContent, setExpandedContent] = useState(false);
 
         // split on punctuation followed by space
         const sentences = text.split(/(?<=[.?!])\s+/);
@@ -72,15 +73,15 @@ const Content = ({content, pid, loading}) => {
         return (
             <p
                 className="info"
-                style={{ cursor: sentences.length > 1 ? 'pointer' : 'default' }}
+                style={{cursor: sentences.length > 1 ? 'pointer' : 'default'}}
                 onClick={() => {
-                    if (sentences.length > 1) setExpanded(e => !e);
+                    if (sentences.length > 1) setExpandedContent(e => !e);
                 }}
             >
-                {expanded ? text : first + (sentences.length > 1 ? '...' : '')}
+                {expandedContent ? text : first + (sentences.length > 1 ? '...' : '')}
                 {sentences.length > 1 && (
                     <span className="toggle">
-          {expanded ? ' Read less' : ' Read more'}
+          {expandedContent ? ' Read less' : ' Read more'}
         </span>
                 )}
             </p>
@@ -103,8 +104,8 @@ const Content = ({content, pid, loading}) => {
                                 </div>
                             </div>
                             <div className="actions upload-actions">
-                                <input
-                                    type="text"
+                                <textarea
+                                    rows="3"
                                     className="upload-description"
                                     placeholder="Enter description"
                                     value={description}
@@ -112,15 +113,23 @@ const Content = ({content, pid, loading}) => {
                                 />
                                 <input
                                     type="file"
+                                    id="file-upload"
                                     className="upload-file"
                                     onChange={handleFileChange}
                                 />
+                                {/* styled label */}
+                                <label htmlFor="file-upload" className="upload-file-label" >
+                                    <i className="fa fa-paperclip"></i>
+                                    Вибрати файл
+
+                                </label>
+
                                 <button
                                     className="upload-button"
                                     onClick={handleUpload}
                                     disabled={!selectedFile}
                                 >
-                                    Завантажити
+                                    Загрузити
                                 </button>
                             </div>
                         </article>
@@ -133,7 +142,7 @@ const Content = ({content, pid, loading}) => {
                                 <i className="fa fa-file"/>
                                 <div>
                                     <h2 className="name">{file.name}</h2>
-                                    <ExpandableDescription text={file.description} />
+                                    <ExpandableContentDescription text={file.description}/>
                                 </div>
                             </div>
                             <div className="actions">
@@ -141,7 +150,7 @@ const Content = ({content, pid, loading}) => {
                                     className="download-button"
                                     onClick={() => downloadFile(file.id)}
                                 >
-                                    Загрузити
+                                    Завантажити
                                 </button>
                                 {/* new comments button */}
                                 <button

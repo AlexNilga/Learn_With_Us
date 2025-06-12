@@ -165,3 +165,32 @@
     background-color: #117a8b;
 }
 
+/* hide the real file input */
+.upload-file {
+    display: none;
+}
+
+/* style your “button” */
+.upload-file-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    color: #fff;
+    background-color: #007bff;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+.upload-file-label:hover {
+    background-color: #0056b3;
+}
+
+/* optional: truncate long filenames */
+.upload-file-label {
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
