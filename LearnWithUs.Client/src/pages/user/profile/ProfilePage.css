@@ -39,17 +39,17 @@
 .login-form input:valid ~ label {
     top: -10px;
     font-size: 0.8rem;
-    color: #8B5CF6;
+    color: #007bff;
 }
 
 .login-form input:focus {
-    border-bottom-color: #8B5CF6;
+    border-bottom-color: #007bff;
 }
 
 .login-form button {
     width: 100%;
     padding: 1rem;
-    background: #8B5CF6;
+    background: #007bff;
     color: white;
     border: none;
     border-radius: 5px;

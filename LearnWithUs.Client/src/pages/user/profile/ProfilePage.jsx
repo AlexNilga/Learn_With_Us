@@ -102,7 +102,7 @@ export default function PersonalProfile() {
                                             </MDBCol>
                                         </MDBRow>
                                         <div className="d-flex justify-content-end mt-3">
-                                            <MDBBtn color="dark" onClick={handleLogout}>
+                                            <MDBBtn color="primary" onClick={handleLogout}>
                                                 Вийти
                                             </MDBBtn>
                                         </div>

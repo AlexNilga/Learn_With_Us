@@ -14,12 +14,10 @@ function AppLayout() {
 
 const getRouterByRole = (role) => {
     switch (role) {
-        case "Guest":
-            return commonRouter
         case "User":
-            return [...commonRouter, ...userRouter]
+            return userRouter
         case "Admin":
-            return [...commonRouter, ...userRouter, ...adminRouter]
+            return adminRouter
         default:
             return commonRouter
     }

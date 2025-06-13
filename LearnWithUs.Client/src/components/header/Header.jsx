@@ -20,7 +20,7 @@ function Header() {
                     <Nav className="me-auto">
                         <Nav.Link as={Link} to="categories">Курси</Nav.Link>
                         <NavDropdown title="Розробка" id="collapsible-nav-dropdown">
-                            <NavDropdown.Item href="#action/3.1">далі буде</NavDropdown.Item>
+                            <NavDropdown.Item href="/users">Користувачі</NavDropdown.Item>
                             <NavDropdown.Item href="#action/3.2">
                                 далі буде
                             </NavDropdown.Item>

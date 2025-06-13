@@ -1,10 +1,38 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import './Categories.css';
 import {AuthContext} from "../../api/AuthContext";
 
 
 const Categories = ({categories, onLearnMore, loading}) => {
     const {role} = useContext(AuthContext);
+
+    // // keep a local copy so we can append new ones immediately
+    // const [localCategories, setLocalCategories] = useState(categories);
+    // useEffect(() => {
+    //     setLocalCategories(categories);
+    // }, [categories]);
+    //
+    // // new category form state
+    // const [newName, setNewName] = useState('');
+    // const [newDescription, setNewDescription] = useState('');
+    // const [creating, setCreating] = useState(false);
+    //
+    // const handleCreate = async () => {
+    //     if (!newName.trim()) {
+    //         alert('Please enter a category name');
+    //         return;
+    //     }
+    //     setCreating(true);
+    //     const result = await createCategory({ name: newName, description: newDescription });
+    //     setCreating(false);
+    //     if (result.success) {
+    //         setLocalCategories(prev => [...prev, result.data]);
+    //         setNewName('');
+    //         setNewDescription('');
+    //     } else {
+    //         alert(result.message || 'Failed to create category');
+    //     }
+    // };
 
     if (loading) {
         return (
