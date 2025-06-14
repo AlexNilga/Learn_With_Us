@@ -9,7 +9,7 @@ import {useContext} from "react";
 import {AuthContext} from "../../api/AuthContext";
 
 function Header() {
-    const {isLoggedIn} = useContext(AuthContext);
+    const {isLoggedIn, role} = useContext(AuthContext);
 
     return (
         <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary" bg="dark" data-bs-theme="dark">
@@ -19,17 +19,9 @@ function Header() {
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="me-auto">
                         <Nav.Link as={Link} to="categories">Курси</Nav.Link>
-                        <NavDropdown title="Розробка" id="collapsible-nav-dropdown">
-                            <NavDropdown.Item href="/users">Користувачі</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.2">
-                                далі буде
-                            </NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.3">далі буде</NavDropdown.Item>
-                            <NavDropdown.Divider />
-                            <NavDropdown.Item as={Link} to="/">
-                                Test
-                            </NavDropdown.Item>
-                        </NavDropdown>
+                        {role === "Admin" && (
+                            <Nav.Link as={Link} to="/users">Користувачі</Nav.Link>
+                            )}
                     </Nav>
                     <Nav>
                         {isLoggedIn ? (
@@ -50,3 +42,16 @@ function Header() {
 }
 
 export default Header;
+
+
+// <NavDropdown title="Розробка" id="collapsible-nav-dropdown">
+//     <NavDropdown.Item href="/users">Користувачі</NavDropdown.Item>
+//     <NavDropdown.Item href="#action/3.2">
+//         далі буде
+//     </NavDropdown.Item>
+//     <NavDropdown.Item href="#action/3.3">далі буде</NavDropdown.Item>
+//     <NavDropdown.Divider/>
+//     <NavDropdown.Item as={Link} to="/">
+//         Test
+//     </NavDropdown.Item>
+// </NavDropdown>

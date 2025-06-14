@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect, useMemo, useState} from 'react';
 import './Categories.css';
 import {AuthContext} from "../../api/AuthContext";
 
@@ -6,33 +6,22 @@ import {AuthContext} from "../../api/AuthContext";
 const Categories = ({categories, onLearnMore, loading}) => {
     const {role} = useContext(AuthContext);
 
-    // // keep a local copy so we can append new ones immediately
-    // const [localCategories, setLocalCategories] = useState(categories);
-    // useEffect(() => {
-    //     setLocalCategories(categories);
-    // }, [categories]);
-    //
-    // // new category form state
-    // const [newName, setNewName] = useState('');
-    // const [newDescription, setNewDescription] = useState('');
-    // const [creating, setCreating] = useState(false);
-    //
-    // const handleCreate = async () => {
-    //     if (!newName.trim()) {
-    //         alert('Please enter a category name');
-    //         return;
-    //     }
-    //     setCreating(true);
-    //     const result = await createCategory({ name: newName, description: newDescription });
-    //     setCreating(false);
-    //     if (result.success) {
-    //         setLocalCategories(prev => [...prev, result.data]);
-    //         setNewName('');
-    //         setNewDescription('');
-    //     } else {
-    //         alert(result.message || 'Failed to create category');
-    //     }
-    // };
+    const [sortOption, setSortOption] = useState('');
+    const [showAddForm, setShowAddForm] = useState(false);  //toggle state
+
+
+// derive a sorted list based on sortOption
+    const sortedCategories = useMemo(() => {
+        const arr = [...categories];
+        switch (sortOption) {
+            case 'alpha':
+                return arr.sort((a, b) => a.name.localeCompare(b.name));
+            case 'alphaReverse':
+                return arr.sort((a, b) => b.name.localeCompare(a.name));
+            default:
+                return arr;
+        }
+    }, [categories, sortOption]);
 
     if (loading) {
         return (
@@ -47,7 +36,7 @@ const Categories = ({categories, onLearnMore, loading}) => {
     }
 
     //an expandable text component
-    function ExpandableCategoryDescription({ text }) {
+    function ExpandableCategoryDescription({text}) {
         const [expandedDescription, setExpandedDescription] = useState(false);
 
         // split on punctuation followed by space
@@ -57,7 +46,7 @@ const Categories = ({categories, onLearnMore, loading}) => {
         return (
             <p
                 className="info"
-                style={{ cursor: sentences.length > 1 ? 'pointer' : 'default' }}
+                style={{cursor: sentences.length > 1 ? 'pointer' : 'default'}}
                 onClick={() => {
                     if (sentences.length > 1) setExpandedDescription(e => !e);
                 }}
@@ -76,9 +65,63 @@ const Categories = ({categories, onLearnMore, loading}) => {
         <>
             <hr/>
             <details className="category-block" open>
-                <summary className="category-header">Курси</summary>
+                <summary className="category-header">
+                    Курси
+                    <select
+                        className="sort-select"
+                        value={sortOption}
+                        onChange={e => setSortOption(e.target.value)}
+                    >
+                        <option value="">Sort</option>
+                        <option value="alpha">Name ↑</option>
+                        <option value="alphaReverse">Name ↓</option>
+                    </select>
+                </summary>
                 <div className="category-cards">
-                    {categories.map(category => (
+                    {role === 'Admin' && (
+                        <div className="admin-add-toggle">
+                            {/** only show the “open form” button when the form is closed */}
+                            {!showAddForm && (
+                                <button
+                                    className="btn btn-success add-btn"
+                                    onClick={() => setShowAddForm(true)}
+                                >
+                                    Add Category
+                                </button>
+                            )}
+
+                            {showAddForm && (
+                                <div className="category-add-form">
+                                    <input
+                                        type="text"
+                                        placeholder="Category Name"
+                                        className="category-input"
+                                    />
+                                    <textarea
+                                        placeholder="Description"
+                                        className="category-textarea"
+                                        rows="3"
+                                    />
+
+                                    {/** wrap cancel + submit in a row */}
+                                    <div className="form-actions">
+                                        <button
+                                            className="btn btn-danger cancel-btn"
+                                            onClick={() => setShowAddForm(false)}
+                                        >
+                                            Cancel
+                                        </button>
+                                        <button className="btn btn-success category-submit-btn">
+                                            Add Category
+                                        </button>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+
+                    )}
+
+                    {sortedCategories.map(category => (
                         <article key={category.id} className="category-card">
                             <div className="card-info">
                                 <i className="fas fa-folder-open"></i>
@@ -112,6 +155,7 @@ const Categories = ({categories, onLearnMore, loading}) => {
             <hr/>
         </>
     );
+
 };
 
 export default Categories;

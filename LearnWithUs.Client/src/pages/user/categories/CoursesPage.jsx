@@ -104,7 +104,7 @@ function CoursesPage() {
                             loading={loading}
                         />
                     ) : (
-                        <div className="no-categories"></div>
+                       <></>
                     )}
                 {
                     content.length > 0 ? (

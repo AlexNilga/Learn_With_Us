@@ -91,7 +91,7 @@ export default function RegisterPage() {
                 <label>Пароль</label>
             </div>
             <button type="submit" disabled={loading}>
-                {loading ? "Registering…" : "Sign Up"}
+                {loading ? "Реєстрація…" : "Підтвердити"}
             </button>
             {errorMsg && <div className="error-message">{errorMsg}</div>}
         </form>

@@ -64,7 +64,7 @@ export default function LoginPage() {
                     <label>Пароль</label>
                 </div>
                 <button type="submit" disabled={loading}>
-                    {loading ? "Registering…" : "Sign In"}
+                    {loading ? "Вхід…" : "Підтвердити"}
                 </button>
                 {errorMsg && <div className="error-message">{errorMsg}</div>}
             </form>

@@ -3,6 +3,7 @@ import {deleteFile, downloadFile, uploadFile} from "../../api/ContentAPI";
 import {AuthContext} from "../../api/AuthContext";
 
 import './Content.css';
+import Comments from "../comments/Comments";
 
 const Content = ({content, pid, loading}) => {
     const {role} = useContext(AuthContext);
@@ -10,10 +11,41 @@ const Content = ({content, pid, loading}) => {
     const [selectedFile, setSelectedFile] = useState(null);
     const [description, setDescription] = useState('');
 
+    // sort option: '', 'alpha', 'alphaReverse', 'type'
+    const [sortOption, setSortOption] = useState('');
+
+    const [visibleCommentsId, setVisibleCommentsId] = useState(null);
 
     useEffect(() => {
         setFiles(content);
     }, [content]);
+
+    // derive a sorted list based on sortOption
+    const sortedFiles = React.useMemo(() => {
+        const arr = [...files];
+        switch (sortOption) {
+            case 'alpha':
+                return arr.sort((a, b) => a.name.localeCompare(b.name));
+            case 'alphaReverse':
+                return arr.sort((a, b) => b.name.localeCompare(a.name));
+            case 'type':
+                return arr.sort((a, b) => {
+                    const extA = a.name.split('.').pop().toLowerCase();
+                    const extB = b.name.split('.').pop().toLowerCase();
+                    return extA.localeCompare(extB);
+                });
+            case 'typeReverse':
+                return arr.sort((a, b) => {
+                    const extA = a.name.split('.').pop().toLowerCase();
+                    const extB = b.name.split('.').pop().toLowerCase();
+                    return extB.localeCompare(extA);
+                });
+
+            default:
+                return arr;
+        }
+    }, [files, sortOption]);
+
 
     const handleDelete = async (fileId) => {
         const result = await deleteFile(fileId);
@@ -48,20 +80,6 @@ const Content = ({content, pid, loading}) => {
         }
     };
 
-    // TODO: replace with real comments UI (modal, side-panel, etc.)
-    const handleShowComments = (fileId) => {
-        console.log(`Show comments for file ${fileId}`);
-    };
-
-
-    if (loading) {
-        return (
-            <div className="loading">
-                loading
-            </div>
-        );
-    }
-
     //an expandable text component
     function ExpandableContentDescription({text}) {
         const [expandedContent, setExpandedContent] = useState(false);
@@ -88,10 +106,30 @@ const Content = ({content, pid, loading}) => {
         );
     }
 
+    const handleCommentsClick = (fileId) => {
+        setVisibleCommentsId(prev => (prev === fileId ? null : fileId));
+    };
+
 
     return (<>
             <details className="content-block" open>
-                <summary className="content-header">Матеріали</summary>
+                <summary className="content-header">
+                    Матеріали
+                    <div className="sort-container">
+                        <select
+                            value={sortOption}
+                            onChange={e => setSortOption(e.target.value)}
+                        >
+                            <option value="">Сортувати</option>
+                            <option value="alpha">A → Z</option>
+                            <option value="alphaReverse">Z → A</option>
+                            <option value="type">Тип файлу A → Z</option>
+                            <option value="typeReverse">Тип файлу Z → A</option>
+
+                        </select>
+                    </div>
+
+                </summary>
 
                 <div className="content-cards">
 
@@ -118,7 +156,7 @@ const Content = ({content, pid, loading}) => {
                                     onChange={handleFileChange}
                                 />
                                 {/* styled label */}
-                                <label htmlFor="file-upload" className="upload-file-label" >
+                                <label htmlFor="file-upload" className="upload-file-label">
                                     <i className="fa fa-paperclip"></i>
                                     Вибрати файл
 
@@ -136,7 +174,7 @@ const Content = ({content, pid, loading}) => {
                     )}
 
 
-                    {files.map(file => (
+                    {sortedFiles.map(file => (<div>
                         <article key={file.id} className="content-card">
                             <div className="file-info">
                                 <i className="fa fa-file"/>
@@ -155,7 +193,8 @@ const Content = ({content, pid, loading}) => {
                                 {/* new comments button */}
                                 <button
                                     className="comments-button"
-                                    onClick={() => handleShowComments(file.id)}
+                                    onClick={() => handleCommentsClick(file.id)}
+
                                 >
                                     <i className="fas fa-comments"/> Коментарі
                                 </button>
@@ -175,7 +214,12 @@ const Content = ({content, pid, loading}) => {
                                 )}
                             </div>
                         </article>
+                            {visibleCommentsId === file.id && (
+                                <Comments/>
+                            )}
+                        </div>
                     ))}
+
                 </div>
             </details>
             <hr/>

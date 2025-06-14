@@ -1,10 +1,11 @@
-import  WelcomePage from "../pages/common/welcome/WelcomePage";
+import  MainPage from "../pages/common/main/MainPage";
 import CoursesPage from "../pages/user/categories/CoursesPage";
 import LoginPage from "../pages/common/authorization/LoginPage";
 import RegisterPage from "../pages/common/authorization/RegisterPage";
 import ProfilePage from "../pages/user/profile/ProfilePage";
 import React from "react";
 import UsersPage from "../pages/admin/UsersPage";
+import WelcomePage from "../pages/common/welcome/WelcomePage";
 
 export const commonRouter = [
     {
@@ -28,7 +29,7 @@ export const commonRouter = [
 export const userRouter = [
     {
         path: "/",
-        element: (<WelcomePage/>),
+        element: (<MainPage/>),
     },
     {
         path: "/profile",
@@ -43,7 +44,7 @@ export const userRouter = [
 export const adminRouter = [
     {
         path: "/",
-        element: (<WelcomePage/>),
+        element: (<MainPage/>),
     },
     {
         path: "/profile",
