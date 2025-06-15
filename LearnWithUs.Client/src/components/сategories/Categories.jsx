@@ -72,9 +72,9 @@ const Categories = ({categories, onLearnMore, loading}) => {
                         value={sortOption}
                         onChange={e => setSortOption(e.target.value)}
                     >
-                        <option value="">Sort</option>
-                        <option value="alpha">Name ↑</option>
-                        <option value="alphaReverse">Name ↓</option>
+                        <option value="">Сортувати</option>
+                        <option value="alpha">За назвою ↑</option>
+                        <option value="alphaReverse">За назвою ↓</option>
                     </select>
                 </summary>
                 <div className="category-cards">
@@ -86,7 +86,7 @@ const Categories = ({categories, onLearnMore, loading}) => {
                                     className="btn btn-success add-btn"
                                     onClick={() => setShowAddForm(true)}
                                 >
-                                    Add Category
+                                    Додати категорію
                                 </button>
                             )}
 
@@ -94,11 +94,11 @@ const Categories = ({categories, onLearnMore, loading}) => {
                                 <div className="category-add-form">
                                     <input
                                         type="text"
-                                        placeholder="Category Name"
+                                        placeholder="Назва категорії"
                                         className="category-input"
                                     />
                                     <textarea
-                                        placeholder="Description"
+                                        placeholder="Опис катогорії"
                                         className="category-textarea"
                                         rows="3"
                                     />
@@ -109,10 +109,10 @@ const Categories = ({categories, onLearnMore, loading}) => {
                                             className="btn btn-danger cancel-btn"
                                             onClick={() => setShowAddForm(false)}
                                         >
-                                            Cancel
+                                            Відмінити
                                         </button>
                                         <button className="btn btn-success category-submit-btn">
-                                            Add Category
+                                            Додати категорію
                                         </button>
                                     </div>
                                 </div>

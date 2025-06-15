@@ -3,9 +3,9 @@ import {AuthContext} from '../../api/AuthContext';
 import './Comments.css';
 // static comments to display
 const staticComments = [
-    {id: 1, author: 'Alice', text: 'Great file!'},
-    {id: 2, author: 'Bob', text: 'Thanks for sharing.'},
-    {id: 3, author: 'Eve', text: 'Very useful.'}
+    {id: 1, author: 'Марія Шевченко', text: 'Дуже цікавий урок, але хотіла б більше дізнатись про цю тему'},
+    {id: 2, author: 'Степан Котов', text: 'Як на мене забагато приділено уваги не тим речам'},
+    {id: 3, author: 'Євген Вілкінс', text: 'Я вважаю що це один з кращіх уроків'}
 ];
 const Comments = () => {
     const {role} = useContext(AuthContext);

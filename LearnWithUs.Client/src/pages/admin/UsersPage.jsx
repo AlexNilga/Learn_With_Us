@@ -2,9 +2,9 @@ import React, {useState} from 'react';
 import './UsersPage.css';
 
 const initialUsers = [
-    {id: 1, firstName: 'Alice', lastName: 'Johnson', email: 'alice@example.com'},
-    {id: 2, firstName: 'Bob', lastName: 'Smith', email: 'bob@example.com'},
-    {id: 3, firstName: 'Carol', lastName: 'Williams', email: 'carol@example.com'},
+    {id: 1, firstName: 'Марія', lastName: 'Шевченко', email: 'mary@nomail.com'},
+    {id: 2, firstName: 'Степан', lastName: 'Котов', email: 'stepan@nomail.com'},
+    {id: 3, firstName: 'Євген', lastName: 'Вілкінс', email: 'geka@nomail.com'},
 ];
 
 export default function UsersList() {
@@ -48,7 +48,7 @@ export default function UsersList() {
 
     return (
         <div className="users-list">
-            <h2>Users</h2>
+            <h2>Користувачі</h2>
             <ul className="users-list__list">
                 {users.map(user => (
                     <li key={user.id} className="users-list__item">

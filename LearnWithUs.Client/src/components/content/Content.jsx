@@ -1,7 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {deleteFile, downloadFile, uploadFile} from "../../api/ContentAPI";
 import {AuthContext} from "../../api/AuthContext";
-
 import './Content.css';
 import Comments from "../comments/Comments";
 
@@ -10,17 +9,14 @@ const Content = ({content, pid, loading}) => {
     const [files, setFiles] = useState(content);
     const [selectedFile, setSelectedFile] = useState(null);
     const [description, setDescription] = useState('');
-
-    // sort option: '', 'alpha', 'alphaReverse', 'type'
     const [sortOption, setSortOption] = useState('');
-
     const [visibleCommentsId, setVisibleCommentsId] = useState(null);
+    const [showUploadForm, setShowUploadForm] = useState(false);
 
     useEffect(() => {
         setFiles(content);
     }, [content]);
 
-    // derive a sorted list based on sortOption
     const sortedFiles = React.useMemo(() => {
         const arr = [...files];
         switch (sortOption) {
@@ -40,18 +36,15 @@ const Content = ({content, pid, loading}) => {
                     const extB = b.name.split('.').pop().toLowerCase();
                     return extB.localeCompare(extA);
                 });
-
             default:
                 return arr;
         }
     }, [files, sortOption]);
 
-
     const handleDelete = async (fileId) => {
         const result = await deleteFile(fileId);
         if (result.success) {
-            // filter out the deleted file
-            setFiles((prev) => prev.filter((f) => f.id !== fileId));
+            setFiles(prev => prev.filter(f => f.id !== fileId));
         } else {
             alert(result.message || 'Failed to delete file');
         }
@@ -65,7 +58,6 @@ const Content = ({content, pid, loading}) => {
         setDescription(e.target.value);
     };
 
-
     const handleUpload = async () => {
         if (!selectedFile) {
             alert("Please select a file first");
@@ -75,19 +67,17 @@ const Content = ({content, pid, loading}) => {
         if (result.success) {
             setFiles(prev => [...prev, result.data]);
             setSelectedFile(null);
+            setDescription('');
+            setShowUploadForm(false);
         } else {
             alert(result.message);
         }
     };
 
-    //an expandable text component
     function ExpandableContentDescription({text}) {
         const [expandedContent, setExpandedContent] = useState(false);
-
-        // split on punctuation followed by space
         const sentences = text.split(/(?<=[.?!])\s+/);
         const first = sentences[0] || "";
-
         return (
             <p
                 className="info"
@@ -99,8 +89,8 @@ const Content = ({content, pid, loading}) => {
                 {expandedContent ? text : first + (sentences.length > 1 ? '...' : '')}
                 {sentences.length > 1 && (
                     <span className="toggle">
-          {expandedContent ? ' Read less' : ' Read more'}
-        </span>
+                        {expandedContent ? ' Read less' : ' Read more'}
+                    </span>
                 )}
             </p>
         );
@@ -110,8 +100,8 @@ const Content = ({content, pid, loading}) => {
         setVisibleCommentsId(prev => (prev === fileId ? null : fileId));
     };
 
-
-    return (<>
+    return (
+        <>
             <details className="content-block" open>
                 <summary className="content-header">
                     Матеріали
@@ -121,19 +111,23 @@ const Content = ({content, pid, loading}) => {
                             onChange={e => setSortOption(e.target.value)}
                         >
                             <option value="">Сортувати</option>
-                            <option value="alpha">A → Z</option>
-                            <option value="alphaReverse">Z → A</option>
-                            <option value="type">Тип файлу A → Z</option>
-                            <option value="typeReverse">Тип файлу Z → A</option>
-
+                            <option value="alpha"> За назвою ↑</option>
+                            <option value="alphaReverse">За назвою ↓</option>
+                            <option value="type">Тип файлу ↑</option>
+                            <option value="typeReverse">Тип файлу ↓</option>
                         </select>
                     </div>
-
                 </summary>
-
                 <div className="content-cards">
-
-                    {role === 'Admin' && (
+                    {role === 'Admin' && !showUploadForm && (
+                        <button
+                            className="btn btn-success add-file-button"
+                            onClick={() => setShowUploadForm(true)}
+                        >
+                            Додати файл
+                        </button>
+                    )}
+                    {role === 'Admin' && showUploadForm && (
                         <article className="content-card upload-card">
                             <div className="file-info">
                                 <i className="fa fa-upload upload-icon"/>
@@ -155,13 +149,9 @@ const Content = ({content, pid, loading}) => {
                                     className="upload-file"
                                     onChange={handleFileChange}
                                 />
-                                {/* styled label */}
                                 <label htmlFor="file-upload" className="upload-file-label">
-                                    <i className="fa fa-paperclip"></i>
-                                    Вибрати файл
-
+                                    <i className="fa fa-paperclip"></i> Вибрати файл
                                 </label>
-
                                 <button
                                     className="upload-button"
                                     onClick={handleUpload}
@@ -169,57 +159,61 @@ const Content = ({content, pid, loading}) => {
                                 >
                                     Загрузити
                                 </button>
+                                <button
+                                    className="cancel-upload-button"
+                                    onClick={() => setShowUploadForm(false)}
+                                >
+                                    Cancel
+                                </button>
                             </div>
                         </article>
                     )}
-
-
-                    {sortedFiles.map(file => (<div>
-                        <article key={file.id} className="content-card">
-                            <div className="file-info">
-                                <i className="fa fa-file"/>
-                                <div>
-                                    <h2 className="name">{file.name}</h2>
-                                    <ExpandableContentDescription text={file.description}/>
-                                </div>
-                            </div>
-                            <div className="actions">
-                                <button
-                                    className="download-button"
-                                    onClick={() => downloadFile(file.id)}
-                                >
-                                    Завантажити
-                                </button>
-                                {/* new comments button */}
-                                <button
-                                    className="comments-button"
-                                    onClick={() => handleCommentsClick(file.id)}
-
-                                >
-                                    <i className="fas fa-comments"/> Коментарі
-                                </button>
-
-                                {role === 'Admin' && (
-                                    <div className="icons-container">
-                                        <button className="icon-button">
-                                            <i className="fas fa-pencil-alt fa-sm"/>
-                                        </button>
-                                        <button
-                                            className="icon-button"
-                                            onClick={() => handleDelete(file.id)}
-                                        >
-                                            <i className="fas fa-trash-alt fa-sm"/>
-                                        </button>
+                    {sortedFiles.map(file => (
+                        <div key={file.id}>
+                            <article className="content-card">
+                                <div className="file-info">
+                                    <i className="fa fa-file"/>
+                                    <div>
+                                        <h2 className="name">{file.name}</h2>
+                                        <ExpandableContentDescription text={file.description}/>
                                     </div>
-                                )}
-                            </div>
-                        </article>
-                            {visibleCommentsId === file.id && (
-                                <Comments/>
-                            )}
+                                </div>
+                                <div className="actions">
+                                    <button
+                                        className="download-button"
+                                        onClick={() => downloadFile(file.id)}
+                                    >
+                                        Завантажити
+                                    </button>
+                                    <button
+                                        className="comments-button"
+                                        onClick={() => handleCommentsClick(file.id)}
+                                    >
+                                        <i className="fas fa-comments"/> Коментарі
+                                    </button>
+                                    {role === 'Admin' && (
+                                        <div className="icons-container">
+                                            <button className="icon-button">
+                                                <i className="fas fa-pencil-alt fa-sm"/>
+                                            </button>
+                                            <button
+                                                className="icon-button"
+                                                onClick={() => {
+                                                    if (window.confirm(`Ви впевнені що ви хочете видалити цей файл? ${file.name}`)) {
+                                                        handleDelete(file.id);
+                                                    }
+                                                }}
+                                            >
+                                                <i className="fas fa-trash-alt fa-sm"/>
+                                            </button>
+
+                                        </div>
+                                    )}
+                                </div>
+                            </article>
+                            {visibleCommentsId === file.id && <Comments/>}
                         </div>
                     ))}
-
                 </div>
             </details>
             <hr/>

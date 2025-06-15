@@ -1,17 +1,18 @@
 import axios from "axios";
 
-export async function registerUserAPI(formData) {
+export async function loginUser(formData) {
+
     try {
         const response = await axios.post(
-            `${process.env.REACT_APP_API_BASE_URL}/user`,
+            `${process.env.REACT_APP_API_BASE_URL}/user/login`,
             formData,
             {headers: {'Content-Type': 'application/json'}}
         );
-
         return {
             status: response.status,
             success: true,
-            message: "Success"
+            message: "Success",
+            token: response.data.token
         }
     } catch (error) {
         return {

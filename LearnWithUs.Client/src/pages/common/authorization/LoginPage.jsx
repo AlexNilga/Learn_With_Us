@@ -2,7 +2,7 @@ import React, {useContext, useState} from 'react';
 import "../../user/profile/ProfilePage.css";
 import {useNavigate} from "react-router-dom";
 
-import {loginUserAPI} from "../../../api/LoginUserAPI";
+import {loginUser} from "../../../api/LoginUser";
 import {AuthContext} from "../../../api/AuthContext";
 
 export default function LoginPage() {
@@ -28,7 +28,7 @@ export default function LoginPage() {
         setErrorMsg("");
         setLoading(true);
 
-        const response = await loginUserAPI(formData);
+        const response = await loginUser(formData);
         console.log("Response message:", response);
 
         if (response.success) {

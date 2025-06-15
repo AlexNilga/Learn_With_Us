@@ -1,8 +1,8 @@
 import React, {useContext, useState} from 'react';
 import "../../user/profile/ProfilePage.css";
-import {registerUserAPI} from "../../../api/RegisterUserAPI";
+import {registerUser} from "../../../api/RegisterUser";
 import {useNavigate} from "react-router-dom";
-import {loginUserAPI} from "../../../api/LoginUserAPI";
+import {loginUser} from "../../../api/LoginUser";
 import {AuthContext} from "../../../api/AuthContext";
 
 export default function RegisterPage() {
@@ -32,10 +32,10 @@ export default function RegisterPage() {
         setErrorMsg("");
         setLoading(true);
 
-        const response = await registerUserAPI(formData);
+        const response = await registerUser(formData);
 
         if (response.success) {
-            const loginResponse = await loginUserAPI(formData)
+            const loginResponse = await loginUser(formData)
             if(loginResponse.success){
                 loginContext(loginResponse.token);
             }
